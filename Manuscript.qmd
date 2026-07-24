@@ -1,5 +1,5 @@
 ---
-title: "Bat ARU comparison"
+title: "Comparing bat detection performance across ultrasonic sensor types: Implications for species-level detections"
 format: docx
 date: last-modified
 author: 
@@ -12,8 +12,6 @@ bibliography: references.bib
 ---
 
 # **Abstract**
-
-The North American Bat (NABat) program tracks bat populations and their long-term responses to these threats non-invasively via passive acoustic monitoring. Advances in recording technology have improved detection, but the adoption of next-generation recording units introduces a need to analyze differences between recorder types to ensure that observed population patterns are not artifacts of equipment changes. Using paired recording devices at 24 NABat sites across BC, we compared bat detections using Generalized Linear Mixed Models (GLMM) to test for differences in the relative activity levels of 16 bat species. We also compared community composition between the recorders using the Jaccard-Sørensen, and Bray-Curtis indices. Finally, we tested how temporal aggregation at the night, 1 hour, and 10 minute scale affects recorder concordance. We found that species-specific GLMMs showed a significant difference between the two detectors. The Anabat Chorus had higher detections for  MYCA, MYCI, MYVO, and MYSE species compared to the SM2-Swift. While the Anabat Chorus had lower detections for LABO and PAHE species compared to the SM2-Swift. These results were also supported by the temporal-specific GLMM which showed that the differences between the two detectors was not due to the temporal aggregation. At the coarsest temporal scale, the Jaccard-Sorensen index found significant overlap between the two detectors indicating that the two detectors were detecting the presence or absence of similar species across the 24 sites. This also was supported by the Bray-Curtis index which also had considerable overlap between the two detectors. Indicating that the two recorders were once again picking up the presence and abundance of similar species across the 24 sites. Therefore, we conclude that there is a significant difference between the two detectors using finer temporal grain and resolution of response metric. This means that for modelling that statistical correction factors or a fixed effect for model need to be used when using different detectors to ensure reliable long-term population assessments for individual species. 
 
 # **Introduction**
 
@@ -30,6 +28,8 @@ British Columbia has contributed to NABat since 2016, using the resulting data b
 ## **Study design**
 
 We used data collected from 24 NABat sites across southern British Columbia during the summer of 2025, from June 16th to June 25th (Figure 1). At each site two recorder types, the Anabat Chorus and the SM2-Swift, were deployed together on top of 3-m poles to establish the paired recorder setup and they were active for 10 nights. For the analysis, we filtered our dataset which contained 56745 observations to species with 50 or more detections present on at least 10 different sites-nights. This left us with 16 species to run our models on (Appendix 1 Table 1) and a dataset with 3030 observations. The eastern red bat, the hoary bat, the silver-haired bat, the little brown bat and the northern long-eared bat are designated as endangered in Canada (Bats 101). While the pallid bat and the spotted bat are designated as threatened and under special concern in Canada (Bats 101). The little brown bat is designated as being endangered and the northern long-eared bat as being nearly threatened according to the global conservation status (IUCN) (Bats by Region).  
+
+Add table with recorder specifications and deployment stuff.
 
 **Figure 1.** The 24 NABat sites in southern British Columbia (GPS Visualizer). 
 
