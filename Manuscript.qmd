@@ -27,11 +27,7 @@ British Columbia has contributed to NABat since 2016, using the resulting data b
 
 ## **Study design**
 
-<<<<<<< HEAD
-We used data collected from 24 NABat sites across southern British Columbia during the summer of 2025, from June 16th to June 25th (Figure 1). At each site two recorder types, the Anabat Chorus and the SM2-Swift, were deployed together on top of 3-m poles to establish the paired recorder setup and they were active for 10 nights. For the analysis, we filtered our dataset which contained 56745 observations to species with 50 or more detections present on at least 10 different sites-nights. This left us with 16 species to run our models on (Appendix 1 Table 1) and a dataset with 3030 observations. The eastern red bat, the hoary bat, the silver-haired bat, the little brown bat and the northern long-eared bat are designated as endangered in Canada (Bats 101). While the pallid bat and the spotted bat are designated as threatened and under special concern in Canada (Bats 101). The little brown bat is designated as being endangered and the northern long-eared bat as being nearly threatened according to the global conservation status (IUCN) (Bats by Region).  
-=======
 We used data collected from 24 NABat sites across southern British Columbia during the summer of 2025, from June 16th to June 25th (Figure 1). At each site two recorder types, the Anabat Chorus and the SM2-Swift, were deployed together on top of 3-m poles to establish the paired recorder setup and they were active for 10 nights. For the analysis, we filtered our dataset which contained 56745 observations to species with 50 or more detections present on at least 10 different sites-nights. This left us with 16 species to run our models on (Appendix 1 Table 1) and a dataset with 3030 observations. The eastern red bat, the hoary bat, the silver-haired bat, the little brown bat and the northern long-eared bat are designated as endangered in Canada (Bats 101). While the pallid bat and the spotted bat are designated as threatened and under special concern in Canada (Bats 101). The little brown bat is designated as being endangered and the northern long-eared bat as being nearly threatened according to the global conservation status (IUCN) (Bats by Region).
->>>>>>> 4df7ee08d2e87199e0fd073489a7753c06ab67ef
 
 Add table with recorder specifications and deployment stuff.
 
