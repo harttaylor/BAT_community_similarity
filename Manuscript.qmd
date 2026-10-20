@@ -31,6 +31,10 @@ We used data collected from 24 NABat sites across southern British Columbia duri
 
 Add table with recorder specifications and deployment stuff.
 
+## Species tag
+
+Need to specify what specie tags we used for the analysis. Did we use the AutoID from Kaleidoscope? Sonobat? Manual verification?
+
 **Figure 1.** The 24 NABat sites in southern British Columbia (GPS Visualizer). 
 
 **Table 1:** The 16 bat species investigated in this study. Their common and scientific names, as well as their 4 letter code and status are listed (NABat 2018; Bats 101).
@@ -70,6 +74,10 @@ For the community level analysis, we used the Jaccard-Sorensen and Bray-Curtis i
 Similarly, the Bray-Curtis index tells us if there is a difference between the two recorders in detecting the presence as well as the abundance of the 16 species across the 24 sites. We used a pre-manova and non-metric multidimensional scaling (NMDS2) plot to visualize community composition using the Bray-Curtis distance. For the Bray-Curtis index, we took our “wide” dataset and filtered for the species column to include just the numbers to create a species matrix. From the species matrix, we calculated the dissimilarity index from which the NMDS2 plot was created. 
 
 We conducted all analyses in R (4.3.1 and R Core Team 2023), using dplyr for data cleaning and manipulation (Wickham et al. 2023), ggplot for creating plots (Wickham 2016), and DHARMa (Hartig 2024) to check model assumptions by assessing residuals. GLMMs were run using the glmer.nb function from the lme4 package (Douglas et al. 2015). Both the Jaccard-Sorensen and the Bary-Curtis indices were run using the vegan package (Oksanen et al 2025). 
+
+## Testing modelling results
+
+What if we used the activity models that we are already using for BC and re-ran them once with SM2 data, and another time with Titley data. We can compare how the results are different. In theory occupancy won't have a super strong signal since we are just lookinga t one bat manually verified bat call, but in activity we are using all of the recordings so might actually have more of an effect. This would allow us to say: this is the difference between the two recorder types, but at the end of the day does it actually matter? (yes or no). My guess looking at our reuslts from the report itself, is that no.
 
 # **Results**
 
