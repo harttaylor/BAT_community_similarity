@@ -1,93 +1,117 @@
+# =================================================================================================================
+# Load detector files, assign species, keep paired site-nights, and build count
+# tables (with zeros) at three time scales.
+#
+# First step is to take individual excel files from Cami for each BC region and merge them all together into a csv
+# saved as combined_raw_bat_detections.csv
+#
+# OUTPUT OBJECTS (used by scripts 02-05)
+#   dat           one row per bat pass, paired site-nights only
+#   night_counts  passes per site x night x detector x species
+#   counts_60     passes per site x 1-hour bin x detector x species
+#   counts_10     passes per site x 10-minute bin x detector x species
+#   spp_keep      species with enough data to analyse
+#
+# =================================================================================================================
+library(tidyverse)
+library(readxl)
+library(lubridate)
 
-library(tidyverse)   # data wrangling and plotting
-library(readxl)      # reading Excel files
-
-# MASS overwrites dplyr's select() function — this line fixes that
 select <- dplyr::select
-
 setwd("C:/Users/hartt/Documents/Projects/BAT_detector_differences/BAT_community_similarity/data/raw")
 
-# =============================================================================
-# LOAD AND CLEAN THE DATA
-# =============================================================================
 
-# --- Read all xlsx files from your working directory -------------------------
+# -----------------------------------------------------------------------------
+# LOAD
+# -----------------------------------------------------------------------------
 
 xlsx_files <- list.files(pattern = "\\.xlsx$", full.names = TRUE)
-
 raw <- map_dfr(xlsx_files, read_excel)
-cat("Total rows:", nrow(raw), "\n")
+print(length(xlsx_files))   # number of files
+print(nrow(raw))            # number of rows (recordings)
 
-#write.csv(raw, "combined_raw_bat_detections.csv")
 
-# --- Label detector models ----------------------------------------------------
-# The two detector types we want to compare are:
-#   Anabat Chorus (Titley Scientific)  -> "Anabat_Chorus"
-#   SM2 or Swift  (Wildlife Acoustics) -> "Other_FS"
-# Everything else (Walkabout, Echo Meter Touch) gets NA and is dropped later.
-#raw <- read.csv("data/raw/combined_raw_bat_detections.csv")
-raw$detector_model <- NA_character_
-raw$detector_model[raw$Model == "Chorus"]      <- "Anabat_Chorus"
-raw$detector_model[raw$Model == "SM2"]         <- "SM2"
-raw$detector_model[raw$Model == "Swift"]       <- "Swift"
+# -----------------------------------------------------------------------------
+# DETECTORS
+# -----------------------------------------------------------------------------
+# detector_model: the actual unit (Anabat_Chorus, SM2, Swift)
+# detector_type:  Chorus vs Legacy (Legacy = whichever WA unit was at the site)
+# Legacy is the reference level, so model ratios are Chorus / Legacy.
 
-# Make it a factor with Other_FS as the reference level.
-# This means model results will tell us how Chorus compares to the legacy units (SM2 and swift).
-raw$detector_model <- factor(raw$detector_model, levels = c("SM2", "Swift", "Anabat_Chorus"))
-
-# But now add a two-level grouping, using original name Other_FS 
-# Reference level is still the legacy units, so a positive coefficient still 
-# means "Chorus records more"
-
-raw$detector_type <- case_when(
-  raw$detector_model == "Anabat_Chorus" ~ "Anabat_Chorus",
-  raw$detector_model %in% c("SM2", "Swift") ~ "Other_FS",
-  TRUE ~ NA_character_
+raw$detector_model <- case_when(
+  raw$Model == "Chorus" ~ "Anabat_Chorus",
+  raw$Model == "SM2"    ~ "SM2",
+  raw$Model == "Swift"  ~ "Swift"
 )
-raw$detector_type <- factor(raw$detector_type, 
-                            levels = c("Other_FS", "Anabat_Chorus"))
+raw$detector_type <- ifelse(raw$detector_model == "Anabat_Chorus", "Chorus", "Legacy")
 
 
-# --- Standardise species names -----------------------------------------------
-# SonoBat (one classifier) uses informal codes like "Mylu" or "Epfu".
-# Kaleidoscope (another classifier) uses codes like "MYOLUC" or "EPTFUS".
-# These are the same species — we map everything to standard 4-letter codes.
-# Anything not in this list (Noise, NoID) becomes NA and gets dropped later.
+# -----------------------------------------------------------------------------
+# CLASSIFIER CHECK
+# -----------------------------------------------------------------------------
+# Which classifier columns are filled for each detector model?
+#   Species Auto ID          = SonoBat
+#   WA|Kaleidoscope|Auto ID  = Kaleidoscope
+# Every detector model needs Kaleidoscope IDs. If a model shows only FALSE in
+# the Kaleidoscope table, its files must be run through Kaleidoscope first.
+
+print(table(raw$detector_model, kaleidoscope_id = !is.na(raw$`WA|Kaleidoscope|Auto ID`)))
+print(table(raw$detector_model, sonobat_id      = !is.na(raw$`Species Auto ID`)))
+
+# "Passed AutoID" filter (used below): check which classifier it belongs to.
+# If it is only ever "True" where a SonoBat ID exists, it is a SonoBat field
+# and should be removed from the filter so that only Kaleidoscope is used.
+print(table(raw$`Passed AutoID`, sonobat_id = !is.na(raw$`Species Auto ID`), useNA = "ifany"))
+
+no_kal <- raw %>%
+  filter(!is.na(detector_model)) %>%
+  group_by(detector_model) %>%
+  summarise(n_kaleidoscope = sum(!is.na(`WA|Kaleidoscope|Auto ID`))) %>%
+  filter(n_kaleidoscope == 0)
+if (nrow(no_kal) > 0) {
+  stop(paste("No Kaleidoscope IDs for:", paste(no_kal$detector_model, collapse = ", ")))
+}
+
+
+# -----------------------------------------------------------------------------
+# SPECIES (Kaleidoscope codes -> 4-letter codes)
+# -----------------------------------------------------------------------------
+# Anything not in this list (NoID, Noise, etc.) becomes NA and is dropped.
 
 spp_crosswalk <- c(
-  "Anpa" = "ANPA",  "ANTPAL" = "ANPA",   # Pallid bat
-  "Coto" = "COTO",  "CORTOW" = "COTO",   # Townsend's big-eared bat
-  "Epfu" = "EPFU",  "EPTFUS" = "EPFU",   # Big brown bat
-  "Euma" = "EUMA",  "EUDMAC" = "EUMA",   # Spotted bat
-  "Labo" = "LABO",  "LASBOR" = "LABO",   # Eastern red bat  <- see note below
-  "Laci" = "LACI",  "LASCIN" = "LACI",   # Hoary bat
-  "Lano" = "LANO",  "LASNOC" = "LANO",   # Silver-haired bat
-  "Myca" = "MYCA",  "MYOCAL" = "MYCA",   # California myotis
-  "Myci" = "MYCI",  "MYOCIL" = "MYCI",   # Western small-footed myotis
-  "Myev" = "MYEV",  "MYOEVO" = "MYEV",   # Long-eared myotis
-  "Mylu" = "MYLU",  "MYOLUC" = "MYLU",   # Little brown myotis
-  "Myse" = "MYSE",  "MYOSEP" = "MYSE",   # Northern long-eared myotis
-  "Myth" = "MYTH",  "MYOTHY" = "MYTH",   # Fringed myotis
-  "Myvo" = "MYVO",  "MYOVOL" = "MYVO",   # Long-legged myotis
-  "Myyu" = "MYYU",  "MYOYUM" = "MYYU",   # Yuma myotis
-  "Pahe" = "PAHE",  "PARHES" = "PAHE"    # Canyon bat
+  "ANTPAL" = "ANPA",   # Pallid bat
+  "CORTOW" = "COTO",   # Townsend's big-eared bat
+  "EPTFUS" = "EPFU",   # Big brown bat
+  "EUDMAC" = "EUMA",   # Spotted bat
+  "LASBOR" = "LABO",   # Eastern red bat
+  "LASCIN" = "LACI",   # Hoary bat
+  "LASNOC" = "LANO",   # Silver-haired bat
+  "MYOCAL" = "MYCA",   # California myotis
+  "MYOCIL" = "MYCI",   # Western small-footed myotis
+  "MYOEVO" = "MYEV",   # Long-eared myotis
+  "MYOLUC" = "MYLU",   # Little brown myotis
+  "MYOSEP" = "MYSE",   # Northern long-eared myotis
+  "MYOTHY" = "MYTH",   # Fringed myotis
+  "MYOVOL" = "MYVO",   # Long-legged myotis
+  "MYOYUM" = "MYYU",   # Yuma myotis
+  "PARHES" = "PAHE"    # Canyon bat
 )
+raw$spp <- unname(spp_crosswalk[raw$`WA|Kaleidoscope|Auto ID`])
 
-
-# Use SonoBat species ID where available, otherwise use Kaleidoscope ID
-raw$spp_raw <- coalesce(raw$`Species Auto ID`, raw$`WA|Kaleidoscope|Auto ID`)
-
-# Look up each value in the crosswalk — anything not in the list becomes NA
-raw$spp <- spp_crosswalk[raw$spp_raw]
-
+# =============================================================================
+# TIME
+# =============================================================================
 # --- Create timestamp and biological night -----------------------------------
 # "Biological night" means we assign all recordings before noon to the
 # previous night. So a recording at 02:00 on June 17 happened during the
 # night that started on June 16 — we want to keep those together.
 
 raw$Timestamp <- as.POSIXct(raw$Timestamp, tz = "America/Vancouver")
-raw$night     <- as.Date(raw$Timestamp - 3600 * 12)   # subtract 12 hours, take the date
+raw$night     <- as.Date(raw$Timestamp - 3600 * 12)          # noon-to-noon night
+raw$hour_bin  <- floor_date(raw$Timestamp, unit = "1 hour")
+raw$bin_10min <- floor_date(raw$Timestamp, unit = "10 minutes")
 raw$site_id   <- paste(raw$CellName, raw$Quadrant, sep = "_")
+
 
 
 # =============================================================================
@@ -95,44 +119,35 @@ raw$site_id   <- paste(raw$CellName, raw$Quadrant, sep = "_")
 # =============================================================================
 
 dat <- raw %>%
-  filter(
-    format(Timestamp, "%Y") == "2025",
-    !grepl("Transect|transect", filepath, ignore.case = TRUE),
-    !Quadrant %in% c("Not Found", "Transects"),
-    !is.na(detector_model),
-    `Passed AutoID` == "True",
-    !is.na(spp)
-  )
+  filter(format(Timestamp, "%Y") == "2025",
+         !grepl("transect", filepath, ignore.case = TRUE),
+         !Quadrant %in% c("Not Found", "Transects"),
+         !is.na(detector_model),
+         `Passed AutoID` == "True",    # see CLASSIFIER CHECK above
+         !is.na(spp))
 
-cat("Bat passes after filtering:", nrow(dat), "\n")
+print(nrow(dat))   # bat passes after filtering
 
 
 # =============================================================================
 # KEEP ONLY PAIRED SITES AND PAIRED NIGHTS
 # =============================================================================
 
-paired_sites <- dat %>%
-  group_by(site_id) %>%
-  summarise(
-    has_chorus = any(detector_type == "Anabat_Chorus"),
-    has_legacy = any(detector_type == "Other_FS"),
-    .groups = "drop"
-  ) %>%
-  filter(has_chorus & has_legacy) %>%
-  pull(site_id)
-
-dat <- filter(dat, site_id %in% paired_sites)
-
 paired_nights <- dat %>%
   group_by(site_id, night) %>%
-  summarise(n_det_types = n_distinct(detector_type), .groups = "drop") %>%
-  filter(n_det_types == 2) %>%
+  summarise(n_types = n_distinct(detector_type), .groups = "drop") %>%
+  filter(n_types == 2) %>%
   select(site_id, night)
 
 dat <- inner_join(dat, paired_nights, by = c("site_id", "night"))
 
-cat("Paired sites:", n_distinct(dat$site_id), "\n")
-cat("Paired site-nights:", nrow(paired_nights), "\n")
+# Which legacy unit is at each site (SM2 or Swift)
+site_legacy <- dat %>%
+  filter(detector_type == "Legacy") %>%
+  distinct(site_id, legacy_model = detector_model)
+print(count(site_legacy, site_id) %>% filter(n > 1))   # should be empty
+
+dat <- left_join(dat, site_legacy, by = "site_id")
 
 write.csv(dat, "bat_detections.csv", row.names = FALSE)
 
@@ -141,93 +156,79 @@ write.csv(dat, "bat_detections.csv", row.names = FALSE)
 # BUILD NIGHTLY COUNTS WITH ZEROS
 # =============================================================================
 
-all_combos <- dat %>%
-  distinct(site_id, CellName, Quadrant, detector_model, detector_type, night)
-
+# Species with enough data 
 spp_keep <- dat %>%
   group_by(spp) %>%
-  summarise(total = n(),
-            site_nights = n_distinct(paste(site_id, night)),
-            .groups = "drop") %>%
-  filter(total >= 50, site_nights >= 10) %>%
-  arrange(desc(total)) %>%
+  summarise(passes = n(), site_nights = n_distinct(site_id, night)) %>%
+  filter(passes >= 50, site_nights >= 10) %>%
   pull(spp)
-
 print(spp_keep)
 
-obs_counts <- dat %>%
-  group_by(site_id, CellName, Quadrant, detector_model, detector_type, night, spp) %>%
-  summarise(n_calls = n(), .groups = "drop")
+# Count tables with zeros
+# Same three steps at each scale:
+#   1. every time bin with any bat activity at the site (detector NOT used here)
+#   2. give that bin both detectors and every species
+#   3. fill in the observed counts; everything else is 0
 
-night_counts <- crossing(all_combos, spp = spp_keep) %>%
-  left_join(
-    obs_counts,
-    by = c("site_id", "CellName", "Quadrant",
-           "detector_model", "detector_type", "night", "spp")
-  ) %>%
+# Nightly
+obs <- dat %>%
+  filter(spp %in% spp_keep) %>%
+  count(site_id, night, detector_type, spp, name = "n_calls")
+night_counts <- dat %>%
+  distinct(site_id, legacy_model, night) %>%
+  crossing(detector_type = c("Legacy", "Chorus"), spp = spp_keep) %>%
+  left_join(obs, by = c("site_id", "night", "detector_type", "spp")) %>%
   mutate(n_calls = replace_na(n_calls, 0))
 
-cat("Total rows in model dataset (including zeros):", nrow(night_counts), "\n")
+# 1-hour bins
+obs <- dat %>%
+  filter(spp %in% spp_keep) %>%
+  count(site_id, night, hour_bin, detector_type, spp, name = "n_calls")
+counts_60 <- dat %>%
+  distinct(site_id, legacy_model, night, hour_bin) %>%
+  crossing(detector_type = c("Legacy", "Chorus"), spp = spp_keep) %>%
+  left_join(obs, by = c("site_id", "night", "hour_bin", "detector_type", "spp")) %>%
+  mutate(n_calls = replace_na(n_calls, 0))
+
+# 10-minute bins
+obs <- dat %>%
+  filter(spp %in% spp_keep) %>%
+  count(site_id, night, bin_10min, detector_type, spp, name = "n_calls")
+counts_10 <- dat %>%
+  distinct(site_id, legacy_model, night, bin_10min) %>%
+  crossing(detector_type = c("Legacy", "Chorus"), spp = spp_keep) %>%
+  left_join(obs, by = c("site_id", "night", "bin_10min", "detector_type", "spp")) %>%
+  mutate(n_calls = replace_na(n_calls, 0))
+
+# Factor levels: Legacy is the reference
+night_counts$detector_type <- factor(night_counts$detector_type, levels = c("Legacy", "Chorus"))
+counts_60$detector_type    <- factor(counts_60$detector_type,    levels = c("Legacy", "Chorus"))
+counts_10$detector_type    <- factor(counts_10$detector_type,    levels = c("Legacy", "Chorus"))
 
 
 # =============================================================================
-# ADD LEGACY MODEL LABEL  
+# CHECKS AND NUMBERS FOR THE METHODS
 # =============================================================================
 
-site_legacy <- all_combos %>%
-  filter(detector_model != "Anabat_Chorus") %>%
-  distinct(site_id, detector_model) %>%
-  arrange(site_id, detector_model) %>%
-  group_by(site_id) %>%
-  summarise(legacy_model    = paste(as.character(detector_model), collapse = " + "),
-            n_legacy_models = n(),
-            .groups = "drop")
+# Grid check: Legacy and Chorus must have the SAME number of rows at each scale
+print(table(night_counts$detector_type))
+print(table(counts_60$detector_type))
+print(table(counts_10$detector_type))
 
-mixed_sites <- filter(site_legacy, n_legacy_models > 1)
-if (nrow(mixed_sites) > 0) {
-  warning("These sites had more than one legacy model, which the design did not ",
-          "anticipate. Check them before modelling:\n  ",
-          paste(mixed_sites$site_id, collapse = ", "))
-}
+# Passes per detector model
+print(count(dat, detector_model))
 
-night_counts <- night_counts %>%
-  left_join(select(site_legacy, site_id, legacy_model), by = "site_id") %>%
-  mutate(legacy_model = factor(legacy_model),
-         site_night   = paste(site_id, night, sep = "|"))
+# Sites and site-nights per legacy model
+print(night_counts %>%
+        distinct(site_id, night, legacy_model) %>%
+        group_by(legacy_model) %>%
+        summarise(sites = n_distinct(site_id), site_nights = n()))
+
+# Passes per species per detector (paired data)
+print(dat %>% filter(spp %in% spp_keep) %>% count(spp, detector_model) %>%
+        pivot_wider(names_from = detector_model, values_from = n, values_fill = 0))
 
 
-# =============================================================================
-# DESIGN DIAGNOSTICS
-# =============================================================================
-
-cat("\n-- Bat passes by recorder model --\n")
-print(table(dat$detector_model))
-
-cat("\n-- Sites per legacy model --\n")
-print(site_legacy %>% count(legacy_model, name = "n_sites"))
-
-cat("\n-- Site-nights per legacy model --\n")
-print(
-  all_combos %>%
-    distinct(site_id, night) %>%
-    left_join(select(site_legacy, site_id, legacy_model), by = "site_id") %>%
-    count(legacy_model, name = "n_site_nights")
-)
-
-cat("\n-- Sites x recorder model (deployment matrix) --\n")
-print(table(all_combos$site_id, all_combos$detector_model))
-
-n_legacy_types <- nlevels(droplevels(factor(site_legacy$legacy_model)))
-
-cat("\n")
-if (n_legacy_types >= 2) {
-  cat(">> Both legacy models are represented. Script 02 will estimate a\n",
-      "   Chorus/legacy correction factor and test whether that factor differs\n",
-      "   between SM2 sites and Swift sites.\n")
-} else {
-  cat(">> Only one legacy model appears in the paired data. No SM2-vs-Swift\n",
-      "   check is possible — report the correction factor as specific to that\n",
-      "   unit rather than to legacy recorders in general.\n")
-}
 
 head(night_counts)
+write.csv(night_counts, "night_counts.csv")
