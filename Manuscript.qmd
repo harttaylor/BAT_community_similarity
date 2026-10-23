@@ -31,10 +31,6 @@ We used data collected from 24 NABat sites across southern British Columbia duri
 
 Add table with recorder specifications and deployment stuff.
 
-## Species tag
-
-Need to specify what specie tags we used for the analysis. Did we use the AutoID from Kaleidoscope? Sonobat? Manual verification?
-
 **Figure 1.** The 24 NABat sites in southern British Columbia (GPS Visualizer). 
 
 **Table 1:** The 16 bat species investigated in this study. Their common and scientific names, as well as their 4 letter code and status are listed (NABat 2018; Bats 101).
@@ -77,8 +73,7 @@ We conducted all analyses in R (4.3.1 and R Core Team 2023), using dplyr for dat
 
 ## Testing modelling results
 
-What if we used the activity models that we are already using for BC and re-ran them once with SM2 data, and another time with Titley data. We can compare how the results are different. In theory occupancy won't have a super strong signal since we are just looking at one bat manually verified bat call, but in activity we are using all of the recordings so might actually have more of an effect. Shoudl we still test both? Can we?\
-Testing with the actually models would allow us to say: this is the difference between the two recorder types, but at the end of the day does it actually matter for modelling? (yes or no). My guess looking at our results from the report itself, is that no.
+Ran the models that are currently being run in BC only including the 11 grid cells that we worked with in here. Re ran the activity and occupancy models. exactly the same except for switching out the 2025 data to only include SM2 or Chorus unit data. compared if the resulting models were different
 
 # **Results**
 
