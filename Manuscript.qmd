@@ -40,7 +40,7 @@ Need to specify what specie tags we used for the analysis. Did we use the AutoID
 **Table 1:** The 16 bat species investigated in this study. Their common and scientific names, as well as their 4 letter code and status are listed (NABat 2018; Bats 101).
 
 |  |  |  |  |
-|------------------|------------------|------------------|------------------|
+|----|----|----|----|
 | **Common Name** | **4 Letter Code** | **Scientific Name** | **Status** |
 | Pallid bat | ANPA | Antrozous pallidus | Threatened  |
 | Townsend's big-eared bat | COTO | Corynorhinus townsendii | Not at risk  |
