@@ -1,7 +1,8 @@
 #This code helps us check and format the raw data to be used for the trend analyses
+library(ggplot2)
 
 #For activity trend analyses only using the output from Kaleidoscope\
-bat.data <- readxl::read_excel("Data/Raw/AllYearActivitybyNight_2016-2025_BC_withCovariates.xlsx", sheet = "OccupancyKSP",.name_repair = ~ gsub("\\s+", "_", trimws(.x)))
+bat.data <- readxl::read_excel("Data/Raw/ActivityModels/AllYearActivitybyNight_2016-2025_SM2_dual_only_withcov.xlsx", sheet = "OccupancyKSP",.name_repair = ~ gsub("\\s+", "_", trimws(.x)))
 bat.data$Year <- lubridate::year(bat.data$Night)
 #remove data from 2015 and prior since it is not consistent or clean enough
 bat.data <- bat.data[bat.data$Year>2015,]
@@ -55,12 +56,12 @@ ggplot(data=bat.data, aes(x=Longitude, y=Latitude,color=as.factor(Year)))+
   geom_point( position=position_jitter(h=.1, w=.1), shape=1)
 
 # Check covariates:Distance Clutter-------------------------------------------------------------------------------
-xtabs(~Distance_to_Clutter__(m),data=bat.data, exclude=NULL, na.action=na.pass)
+xtabs(~`Distance_to_Clutter_(m)`,data=bat.data, exclude=NULL, na.action=na.pass)
 #cap the maximum distance to 75m for modeling purposes
-bat.data$Distance_to_Clutter__(m)[bat.data$Distance_to_Clutter__(m) > 75] <- 75
-xtabs(~Distance_to_Clutter__(m),data=bat.data, exclude=NULL, na.action=na.pass)
+bat.data$`Distance_to_Clutter_(m)`[bat.data$`Distance_to_Clutter_(m)` > 75] <- 75
+xtabs(~`Distance_to_Clutter_(m)`,data=bat.data, exclude=NULL, na.action=na.pass)
 #get the percentage of rows with no distance to clutter
-mean(is.na(bat.data$Distance_to_Clutter__(m)))
+mean(is.na(bat.data$`Distance_to_Clutter_(m)`))
 
 # Check covariates:Percent Clutter-------------------------------------------------------------------------------
 xtabs(~Percent_Clutter,data=bat.data, exclude=NULL, na.action=na.pass)

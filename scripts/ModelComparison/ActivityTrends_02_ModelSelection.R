@@ -148,7 +148,7 @@ fit_one_model <- function(cell.summary, var_string) {
 
 # ── 3.  Main loop: fit all candidates per species, rank by AIC ───────────────
 
-sploc <- read.csv("Data/Raw/sploc.csv",check.names = FALSE, row.names = 1)
+sploc <- read.csv("Data/Raw/ActivityModels/sploc.csv",check.names = FALSE, row.names = 1)
 bc.fits.cov.singlet <- plyr::dlply(bat.data.long, "SpeciesGroup", function(x) {
   
   sp <- x$SpeciesGroup[1]
@@ -268,7 +268,7 @@ bc.cov.slope.summary.singlet <- plyr::rename(bc.cov.slope.summary.singlet, c("Pr
 temptable <- bc.cov.slope.summary.singlet[,c("SpeciesGroup","Estimate","SE","p.value")]
 
 kable(temptable, row.names=FALSE, 
-      caption="Estimated trends on logarithmic scale in bat detections for semipool, fullpool and singlet models",
+      caption="Estimated trends on logarithmic scale in bat detections for semipool, fullpool and singlet models-SM2",
       col.names=c("Species","Estimate","SE","P-value"),
       digits=c(0,  2,2,4))  %>% 
   add_header_above(c(" "=1, "AutoID BC W Covariates"=3)) %>%
@@ -277,7 +277,7 @@ kable(temptable, row.names=FALSE,
   kable_styling("bordered",position = "center", full_width=FALSE, latex_options = "HOLD_position")  ####%$%$
 
 
-write.csv(bc.cov.slope.summary.singlet, file="Data/Analyzed/ActivityTrends/bc.cov.estimates.singlet.csv", row.names=FALSE)
+write.csv(bc.cov.slope.summary.singlet, file="Data/ActivityModels/bc.cov.estimates.singlet.SM2.csv", row.names=FALSE)
 
 
 ##-------------------------Make the vars lists best on the best fit models---------------------
@@ -291,7 +291,7 @@ varlists <- do.call(rbind, lapply(names(bc.fits.cov.singlet), function(sp) {
   )
 }))
 
-write.csv(varlists,"Data/Analyzed/ActivityTrends/ModelVariables.csv")
+write.csv(varlists,"Data/ActivityModels/ModelVariables-SM2.csv")
 
 ##Model Selection for transect models in report
 # ── 1. Define candidate variable sets ──────────────────────────────────────
