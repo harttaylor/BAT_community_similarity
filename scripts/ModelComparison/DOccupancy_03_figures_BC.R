@@ -27,9 +27,9 @@ library(tidyr)
 # SETTINGS
 # ============================================================================
 
-DATA_DIR <- "data/processed/BC"
-FIT_DIR  <- "outputs/BC/fits"
-OUT_DIR  <- "outputs/BC"
+DATA_DIR <- "Data/Analyzed/DOccupancy/ChorusData"
+FIT_DIR  <- "Data/Analyzed/DOccupancy/ChorusFits"
+OUT_DIR  <- "Outputs/DOccupancy/Chorus"
 
 det_summary     <- read.csv(file.path(DATA_DIR, "species_detection_summary.csv"))
 SPECIES_TO_PLOT <- det_summary$species     # species without a fit are skipped
