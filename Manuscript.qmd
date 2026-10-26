@@ -7,6 +7,14 @@ author:
     affiliation: "University of Alberta"
   - name: "Camila Hurtado"
     affiliation: "SENSR"
+  - name: "Student"
+    affiliation: "University of Alberta"
+  - name: "Jason Rae"
+    affiliation: "Wildlife Conservation Society Canada"
+  - name: "Matina Kalcounis-Rueppell"
+    affiliation: "University of Alberta"
+  - name: "Erin Bayne"
+    affiliation: "University of Alberta"
 editor: visual
 bibliography: references.bib
 ---
@@ -27,9 +35,9 @@ British Columbia has contributed to NABat since 2016, using the resulting data b
 
 ## **Study design**
 
-We used data collected from 31 NABat sites across southern British Columbia during the summer of 2025, from June 16th to June 25th (Figure 1). At each site two recorder types, the Anabat Chorus and the SM2-Swift, were deployed together on top of 3-m poles to establish the paired recorder setup and they were active for 10 nights. For the analysis, we filtered our dataset which contained 56745 observations to species with 50 or more detections present on at least 10 different sites-nights. This left us with 16 species to run our models on (Appendix 1 Table 1) and a dataset with 3030 observations. The eastern red bat, the hoary bat, the silver-haired bat, the little brown bat and the northern long-eared bat are designated as endangered in Canada (Bats 101). While the pallid bat and the spotted bat are designated as threatened and under special concern in Canada (Bats 101). The little brown bat is designated as being endangered and the northern long-eared bat as being nearly threatened according to the global conservation status (IUCN) (Bats by Region).
+We used data collected at 31 NABat sites across British Columbia between May 23 to July 8 2025 (@fig-map). Most sites were in southeastern and south-central BC, with a few in the north. At each site, we deployed two recorder types, a Wildlife Acoustics Song Meter SM2Bat+ (SM2) and a Titley Scientific Chorus (Chorus), following the NABat protocol and the provincial standards for British Columbia [@loeb2015; @hurtado2026BC]. The SM2, fitted with an SMX-U1 microphone, which was mounted at the top of a \~3 m pole, and the Chorus was mounted directly below it (@fig-deployment). Both units recorded for at least seven consecutive nights using comparable acoustic settings ([Appendix A]).
 
-Add table with recorder specifications and deployment stuff.
+![Representative detector deployment (NABat grid cell 186490). The SM2 microphone and the Chorus unit were co-located on a \~3 m pole; the SM2 recorder was placed nearby.](Figures/186490_PairedDeployment.jpg){#fig-deployment}
 
 ```{r}
 #| label: fig-sitemap
@@ -122,27 +130,9 @@ site_map <- site_map +
 site_map
 ```
 
-~~**Table 1:** The 16 bat species investigated in this study. Their common and scientific names, as well as their 4 letter code and status are listed (NABat 2018; Bats 101).~~ \<-Dont think we need to add this in here
+Acoustic data were processed following the British Columbia provincial protocol [@hurtado2026BC; @rae2024]. All recordings were first processed with Kaleidoscope Pro (Bats of North America classifier, v5.4.0) and SonoBat 30 (Northwestern British Columbia classifier). This filtered out files without bat echolocation pulses and assigned a preliminary species identification to the rest. Following @hurtado2026BC, approximately 50% of recordings for each site and recorder type were then manually verified according to the standards of @reichert2018.
 
-|  |  |  |  |
-|------------------|------------------|------------------|------------------|
-| **Common Name** | **4 Letter Code** | **Scientific Name** | **Status** |
-| Pallid bat | ANPA | Antrozous pallidus | Threatened  |
-| Townsend's big-eared bat | COTO | Corynorhinus townsendii | Not at risk  |
-| Big brown bat | EPFU | Eptesicus fuscus | Not at risk of extinction  |
-| Spotted bat | EUMA | Euderma maculatum | Special concern  |
-| Eastern red bat | LABO | Lasiurus borealis | Endangered  |
-| Hoary bat | LACI | Lasiurus cinereus | Endangered  |
-| Silver-haired bat | LANO | Lasionycteris noctivagans | Endangered  |
-| California myotis | MYCA | Myotis californicus | Not at risk of extinction  |
-| Western small-footed myotis | MYCI | Myotis ciliolabrum | Not at risk  |
-| Long-eared myotis | MYEV | Myotis evotis | Not at risk  |
-| Little brown bat | MYLU | Myotis lucifugus | Endangered  |
-| Northern long-eared bat | MYSE | Myotis septentrionalis | Endangered  |
-| Fringed myotis | MYTH | Myotis thysanodes | Date deficient |
-| Long-legged myotis | MYVO | Myotis volans | Not at risk  |
-| Yuma myotis | MYYU | Myotis yumanensis | Not at risk  |
-| Canyon bat | PAHE | Parastrellus hesperus | Data deficient  |
+Each of the following statistical analyses used a different version of this dataset. Species- and community-level comparisons between recorders used the automated classifications from both SonoBat and Kaleidoscope. Activity models used Kaleidoscope classifications only. Dynamic occupancy models used manually verified identifications only.
 
 ## **Statistical analysis**
 
@@ -152,7 +142,7 @@ To analyze our data we created two models, one at the species level and one at t
 
 We tested the temporal aggregations by subsetting our raw dataset into two temporal bins: 10 minutes bin and 1 hour bin. We used our “night_counts” dataset for the full night bin. The 10 minute bin contained 153248 observations and the 1 hour bin contained 41648 observations. We run GLMMs at these three temporal scales to test whether the detection bias arose at particular temporal scales. For these GLMMs we included a nested random effect (1\|site_id/night) for sub-nightly scales, because samples were taken from multiple nights per site. We visualized the results of the GLMM using intraclass correction coefficient (ICC), which looks at the agreement between the Anabat Chorus and the SM2-Swift at detecting the same species across the 24 sites for each temporal aggregation. An ICC value of 1 means full agreement between the two recorders, entailing that there is no difference in detections across the temporal aggregations. An ICC value of 0 means no agreement between the two recorders, entailing that there is a difference in detections across the temporal aggregations.
 
-Community-level
+### Community-level
 
 For the community level analysis, we used the Jaccard-Sorensen and Bray-Curtis indices to test for a difference in the detections of community compositions between the two recorders for the 16 species at the 24 sites. The Jaccard-Sorensen index tells us if the same species are detected by the two recorders across the 24 sites, with 1 indicating that the species detected by the two recorders are identical and 0 indicating no overlap between the recorders. To run the Jaccard-Sorensen index, we reshaped our “night_counts” dataset to include sample_id, site_id, detector_type, and the 16 species. This reshaped data was named “wide” and it  contained 412 observations. We then split the wide dataset by detector type, to get two datasets with 206 observations each. We then paired these two datasets, which contained 206 observations and ran the Jaccard-Sorensen index. We visualized the results of the Jaccard-Sorensen index using boxplots which show the median similarly across all nights. 
 
@@ -217,7 +207,7 @@ Where total detections is the total number of detected calls of a given species 
 
 We fitted multi-season (dynamic) occupancy models [@mackenzie2003] to estimate trends in occupancy, colonization, and persistence while accounting for imperfect detection. Model structure, covariates, and priors followed the provincial models; full details are in @hurtado2026BC. Briefly, initial occupancy ($\psi$) was modelled as a function of distance to water and elevation. Colonization ($\gamma$) and persistence ($\varphi$) were modelled as a function of these same covariates plus year-varying distance to harvest and distance to road. Detection probability ($p$) was modelled as a function of percent clutter, nightly mean temperature, and Julian night.
 
-Repeat surveys were nightly detection/non-detection data, subsampled to every other night (maximum four nights per site-year) to reduce temporal autocorrelation. We excluded 2016 because few sites were surveyed that year, which would have left initial occupancy poorly informed. Sites were retained if they had at least two nights of data in a given year and data from at least two years. Models were fitted separately for each species in JAGS (v4.3.2) via jagsUI (v1.6.3) in R (v4.5.1), using 3 chains of 30,000 iterations (15,000 burn-in, thinning by 10). Convergence was assessed with Rhat (\< 1.1). We summarized the occupancy trend as $\lambda$, the ratio of estimated occupancy in the final year to that in the initial year. A trend was considered an increase or decline when the 95% credible interval excluded 1.
+Repeat surveys were nightly detection/non-detection data, subsampled to every other night (maximum four nights per site-year) to reduce temporal autocorrelation. We excluded 2016 because few sites were surveyed that year, which would have left initial occupancy poorly informed. Sites were retained if they had at least two nights of data in a given year and data from at least two years. Models were fitted separately for each species in JAGS (v4.3.2) via jagsUI (v1.6.3) in R (v4.5.1), using 3 chains of 30,000 iterations (15,000 burn-in, thinning by 10). Convergence was assessed with Rhat (\< 1.1). We summarized occupancy trends in two ways: as the mean annual change in occupancy probability (the trend slope), and as the overall change across the study period, calculated as the difference between estimated occupancy in the final (2025) and initial (2017) years. A trend was considered an increase or decline when its 95% credible interval excluded zero.
 
 # **Results**
 
@@ -247,36 +237,17 @@ The Bray-Curtis dissimilarity index showed significant overlap between the two r
 
 ### Activity Trends
 
-Activity trend estimates were broadly consistent between detector types. Of the 15 species modelled, 11 agreed in both the direction and significance of the trend (@tbl-activitycomp). For three species, Townsend's big-eared bat, hoary bat and California Myotis, trends agreed in direction but differed in significance. Townsend's big-eared bat and hoary bat showed significant increases with Chorus data (β = 0.085, p = 0.049 and β = 0.224, p = 0.046, respectively) but non-significant trends with SM2 data (β = 0.071, p = 0.098 and β = 0.138, p = 0.228). Hoary bat was also the only species for which sample sizes differed between detectors, with one fewer night of detections from Chorus than from SM2 (n = 204 vs. 205). California Myotis, showed a significant decline with SM2 data (β = −0.100, p = 0.006) but no significance with Chorus data (β = −0.064, p = 0.067). In all three cases, the difference between detector estimates was less than one standard error. This suggests the discrepancies reflect estimates lying near the significance threshold rather than contrasting trends. Fringed Myotis was the only species where the direction of the trend differed between detectors, with a slightly positive estimate from Chorus (β = 0.007, p = 0.829) and a slightly negative estimate from SM2 (β = −0.020, p = 0.557). Both estimates were close to zero and non-significant.
+Activity trend estimates were broadly consistent between detector types. Of the 15 species modelled, 11 agreed in both the direction and significance of the trend (@fig-activitycomp). For three species, Townsend's big-eared bat, hoary bat and California Myotis, trends agreed in direction but differed in significance. Townsend's big-eared bat and hoary bat showed significant increases with Chorus data but non-significant trends with SM2 data. Hoary bat was also the only species for which sample sizes differed between detectors, with one fewer night of detections from Chorus than from SM2 (n = 204 vs. 205). California Myotis, showed a significant decline with SM2 data but no significance with Chorus data. In all three cases, the difference between detector estimates was less than one standard error. This suggests the discrepancies reflect estimates lying near the significance threshold rather than contrasting trends. Fringed Myotis was the only species where the direction of the trend differed between detectors, with a slightly positive estimate from Chorus and a slightly negative estimate from SM2. Both estimates were close to zero and non-significant.
 
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-#| include: true
-#| label: tbl-activitycomp
-#| tbl-cap: "Comparison between activity models"
-
-comparison <- read.csv("Data/Analyzed/ActivityModels/activitytrend_comparison_Chorus_vs_SM2.csv")
-
-display_table <- comparison %>%
-  transmute(
-    Species          = SpeciesGroup,
-    `Chorus est (p)` = sprintf("%+.3f (%.3f)", est_C, p_C),
-    `SM2 est (p)`    = sprintf("%+.3f (%.3f)", est_S, p_S),
-    `Diff (in SE)`   = sprintf("%.2f", diff_in_SE),
-    `n (C/S)`        = ifelse(n_match, as.character(n_C), paste0(n_C, "/", n_S)),
-    Agreement        = agreement
-  )
-
-flextable(display_table) %>%
-  theme_booktabs() %>%
-  fontsize(size = 9, part = "all") %>%
-  align(j = 5:6, align = "right", part = "all") %>%
-  autofit()
-```
+![Estimated 2016–2025 trends in nightly bat activity for 15 species at 31 NABat sites in British Columbia. Both trend series use the same 2016–2024 data. They differ only in which recorder supplied the 2025 data at paired sites: Chorus (teal) or SM2Bat (orange). Points are slope estimates from negative binomial GLMMs of nightly call counts, and horizontal bars are 95% confidence intervals. Filled points mark trends that differ significantly from zero (p \< 0.05); open points are non-significant. The dashed vertical line marks zero (no trend). Species are ordered by decreasing mean estimate.](Figures/fig_activity_trend_comparison.png){#fig-activitycomp}
 
 ### Dynamic Occupancy
+
+As with the activity models, dynamic occupancy trends at the BC scale were largely consistent between data sources. For the annual trend in occupancy, significance was identical for all 13 species: both Chorus and SM2 data produced 95% credible intervals excluding zero for long-legged Myotis, eastern red bat, western long-eared Myotis, little brown Myotis and silver-haired bat (all increasing), and intervals overlapping zero for the remaining eight species. The direction of the slope also agreed for all species except big brown bat and spotted bat, whose estimates were near zero and non-significant under both data sources.
+
+Estimates of overall change in occupancy (final minus first year) showed more divergence. For long-legged Myotis, western long-eared Myotis and little brown Myotis, the Chorus-based credible intervals excluded zero, whereas the SM2-based intervals overlapped or bordered zero. Silver-haired bat was the only species with a significant overall change under both data sources, and its estimates were nearly identical between them. Overall change for all other species was non-significant under both data sources, with sign disagreements seen only in California Myotis and western small-footed Myotis.
+
+![Estimated 2017–2025 trends in occupancy for 13 bat species at 31 NABat sites in British Columbia, from dynamic occupancy models. Both trend series use the same 2017–2024 data. They differ only in which recorder supplied the 2025 detections at paired sites: Chorus (teal) or SM2Bat (orange). The left panel shows the estimated change in occupancy per year. The right panel shows the overall change in occupancy across the study period (2017 estimate - 2025 estimate). Points are estimates and horizontal bars are 95% credible intervals. Filled points mark intervals that exclude zero; open points mark intervals that overlap zero. Dashed vertical lines mark zero (no change). Species are ordered by decreasing mean estimate across recorders.](Figures/fig_trend_BC_all_sites.png){#fig-occcomp}
 
 # **Discussion**
 
@@ -290,7 +261,7 @@ Our hypothesis that newer generation recorders would detect lower frequency bats
 
 Community-level 
 
-Our hypothesis that both recorders would detect similar species richness and composition was supported. Research conducted by Adams et al (2012) displayed significant differences in the detections of five commercial bat detectors, which included the Anabat and the SM2BAT. They found that detections were most impacted by the frequency of bat calls, with the Anabat and SM2BAT detecting more of the low frequency calls. In addition,  Adams et al (2012) brings forth the importance of acknowledging the hazards of comparing data that are collected using different acoustic detectors. As different detectors give different results. Therefore, the lack of standardization between these recorders could bias the trends which are present in the bat populations and paint a false picture of what is truly happening. In addition, [Skalak et al  (2012)](https://www.zotero.org/google-docs/?G3vKy2) argues that to capture an accurate estimate of species richness at a particular site, 20-30 nightly samples should be taken. They found that after 30 nights, the Anabat correctly detected 80-90% of species at each sampling location. Therefore, sampling more nights for our research could have improved the species detection for the two detectors, which may then have shown potential differences in detections. Furthermore, there could also be many travel corridors between these sites enabling the bats to travel between them, resulting in similar detections. Furthermore, the Anabat Chorus and the SM2-Swift were recording at night when the bats were most active. Therefore, this could also explain why the detections between the two detectors are similar in terms of what species are present as well as their abundance. As mentioned before, the omnidirectional microphones of both the recorders would facilitate a higher likelihood of detecting bat species if they were present at a particular site, at a particular number (Chorus Wildlife Recorder). 
+Our hypothesis that both recorders would detect similar species richness and composition was supported. Research conducted by Adams et al (2012) displayed significant differences in the detections of five commercial bat detectors, which included the Anabat and the SM2BAT. They found that detections were most impacted by the frequency of bat calls, with the Anabat and SM2BAT detecting more of the low frequency calls. In addition,  Adams et al (2012) brings forth the importance of acknowledging the hazards of comparing data that are collected using different acoustic detectors. As different detectors give different results. Therefore, the lack of standardization between these recorders could bias the trends which are present in the bat populations and paint a false picture of what is truly happening. In addition, [Skalak et al (2012)](https://www.zotero.org/google-docs/?G3vKy2) argues that to capture an accurate estimate of species richness at a particular site, 20-30 nightly samples should be taken. They found that after 30 nights, the Anabat correctly detected 80-90% of species at each sampling location. Therefore, sampling more nights for our research could have improved the species detection for the two detectors, which may then have shown potential differences in detections. Furthermore, there could also be many travel corridors between these sites enabling the bats to travel between them, resulting in similar detections. Furthermore, the Anabat Chorus and the SM2-Swift were recording at night when the bats were most active. Therefore, this could also explain why the detections between the two detectors are similar in terms of what species are present as well as their abundance. As mentioned before, the omnidirectional microphones of both the recorders would facilitate a higher likelihood of detecting bat species if they were present at a particular site, at a particular number (Chorus Wildlife Recorder). 
 
 Passive acoustic detectors are a great tool that allows researchers an insight into the ecology and behavior of echolocating bats. They allow researchers to identify and quantify the species of bats inhabiting specific regions. This is especially important for bat species which are facing population declines in regions like British Columbia, where they are vital to the survival of the ecosystem. Therefore, passive acoustic detectors allow researchers to monitor such regions, and implement interventions when needed. However, as newer generation detectors are brought into the market, it becomes increasingly difficult to compare population trends recorded from newer generation models to older generation models. Many detectors have their own unique characteristics that makes them suited for a particular research study compared to another. For example, studying low vs high frequency bats or studying bats at a species vs community-level. Therefore, research such as ours looks to see the difference between two of such detectors to see which one is more suited for species identification and richness. Our results indicate that statistical correction factors should be made for the Anabat Chorus so that it can be used for studying high frequency bats at a species-level. This will ensure that the trends we see from the Anabat Chorus are reflective of the population. In addition, understanding which detectors to use for certain situations will save researchers a lot of time and resources. Instead, this time and resources should be focused on implementing interventions for endangered and threatened bat species in areas like BC.  
 
@@ -302,6 +273,22 @@ Our research suggests that there is a significant difference between the Anabat 
 
 "Low-frequency ultrasounds travel farther in air and attenuate less rapidly than high-frequency ultrasounds (Lawrence and Simmons [**1982**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0019), Parsons [**1996**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0027), Pettersson [**2004**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0028)). Furthermore, broadband frequency-modulated signals used by *Myotis* bats have lower source amplitudes and travel shorter distances than the quasi-constant-frequency or frequency-modulated calls used by low and midrange frequency bats (Schnitzler and Kalko [**2001**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0030), Limpens and McCracken [**2004**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0020)). Consequently, when surveying with acoustic bat detectors, we are more likely to detect low-phonic-group bats than high-frequency bats such as *Myotis* species (Adams et al. [**2012**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0001)). " from @kaiser2015
 
-Although we were able to quantify the differences in detectability from the units, when we actually ran our models with these, we found no effect on the overal model reustls. The estimates differ, but the significance and direction of the estimtes were the same for activity models. Want to clarify that these model resutls are not reliable, and were jsut used to see the impact of the units used. To see actual model resutls go to @hurtado2026BC.
+Although we were able to quantify the differences in detectability from the units, when we actually ran our models with these, we found no effect on the overall model results. The estimates differ, but the significance and direction of the estimates were the same for activity models. For occupancy we saw similar results, with significance and directionality being very similar. Want to clarify that these model results are not reliable, and were just used to see the impact of the units used. To see actual model results go to @hurtado2026BC.
 
 # Literature Cited
+
+# Appendix A
+
+Acoustic recording setting for SM2 and Chorus deployments
+
+| Setting | Wildlife Acoustics SM2Bat + | Titley Chorus |
+|------------------------|------------------------|------------------------|
+| Sample Rate | 384 kHz | 320 kHz |
+| File format | Full-spectrum .wav | Full-spectrum .wav |
+| Recording Mode | Triggered | Triggered |
+| Gain | 0dB | \- |
+| High Pass Filter | 8kHz | 10kHz |
+| Trigger Threshold/Mic Sensitivity | 15 dB above background. | 16 (manufacturer default, unitless scale) |
+| Min Trigger Frequency | 8kHz | 10kHz |
+| Min Recording Length | 2s | 2s |
+| Max Recording Length | 15s | 15s |
