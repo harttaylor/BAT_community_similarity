@@ -40,15 +40,16 @@ We used data collected at 31 NABat sites across British Columbia between May 23 
 ![Representative detector deployment (NABat grid cell 186490). The SM2 microphone and the Chorus unit were co-located on a \~3 m pole; the SM2 recorder was placed nearby.](Figures/186490_PairedDeployment.jpg){#fig-deployment}
 
 ```{r}
-#| label: fig-sitemap
-#| fig-cap: "Locations of acoustic monitoring sites (NABat GRTS cells) across British Columbia, shown by region. Points are individual quadrant deployments; labels give the GRTS cell ID."
+#| label: set up for map
 #| fig-width: 6.5
 #| fig-height: 6.5
 #| dpi: 300
 #| echo: false
 #| message: false
 #| warning: false
+#| include: false
 
+#this is the code of how the map was created. Left it here in case it is needed, but code does not need to run.
 library(sf)
 library(dplyr)
 library(ggplot2)
@@ -63,8 +64,8 @@ region_colors <- c(
 )
 
 # --- Regions --------------------------------------------------------------
-bc_regions <- st_read("Data/Raw/BCRegions.shp", quiet = TRUE) 
-if (is.na(st_crs(bc_regions))) st_crs(bc_regions) <- 4326 
+bc_regions <- st_read("Data/Raw/BCRegions.shp", quiet = TRUE)
+if (is.na(st_crs(bc_regions))) st_crs(bc_regions) <- 4326
 
 # Find the column holding the region names
 name_col <- names(st_drop_geometry(bc_regions))[
@@ -126,9 +127,10 @@ site_map <- site_map +
     pad_y = unit(0.3, "cm"),
     style = north_arrow_minimal()
   )
-
-site_map
+ggsave("Figures/fig_mapsites.png", site_map, width = 6.5, height = 6, dpi = 600)
 ```
+
+![Locations of acoustic monitoring sites (NABat GRTS cells) across British Columbia, shown by region. Points are individual quadrant deployments; labels give the GRTS cell ID.](Figures/fig_mapsites.png){#fig-map fig-env="fig-map"}
 
 Acoustic data were processed following the British Columbia provincial protocol [@hurtado2026BC; @rae2024]. All recordings were first processed with Kaleidoscope Pro (Bats of North America classifier, v5.4.0) and SonoBat 30 (Northwestern British Columbia classifier). This filtered out files without bat echolocation pulses and assigned a preliminary species identification to the rest. Following @hurtado2026BC, approximately 50% of recordings for each site and recorder type were then manually verified according to the standards of @reichert2018.
 
