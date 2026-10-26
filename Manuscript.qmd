@@ -7,7 +7,7 @@ author:
     affiliation: "University of Alberta"
   - name: "Camila Hurtado"
     affiliation: "SENSR"
-  - name: "Student"
+  - name: "Nayan Shibu"
     affiliation: "University of Alberta"
   - name: "Jason Rae"
     affiliation: "Wildlife Conservation Society Canada"
