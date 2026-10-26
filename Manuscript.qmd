@@ -57,7 +57,7 @@ Add table with recorder specifications and deployment stuff.
 
 ## **Statistical analysis**
 
-Species-level models
+### Species-level models
 
 To analyze our data we created two models, one at the species level and one at the community level. For the species level analysis we used negative binomial generalized linear mixed models (GLMM) to test the difference between the Anabat Chorus and the SM2-Swift at detecting the 16 species across the 24 sites at the night level. To run the species-specific GLMM, we filtered the raw data set into rows that gave the exact number of calls for a particular species at a particular night and site. We renamed this filtered dataset “night_counts” and it contained 6592 observations. We included a fixed effect for detector type, and a random effect for sites because multiple samples were collected from the same site. 
 
@@ -71,9 +71,81 @@ Similarly, the Bray-Curtis index tells us if there is a difference between the t
 
 We conducted all analyses in R (4.3.1 and R Core Team 2023), using dplyr for data cleaning and manipulation (Wickham et al. 2023), ggplot for creating plots (Wickham 2016), and DHARMa (Hartig 2024) to check model assumptions by assessing residuals. GLMMs were run using the glmer.nb function from the lme4 package (Douglas et al. 2015). Both the Jaccard-Sorensen and the Bary-Curtis indices were run using the vegan package (Oksanen et al 2025). 
 
-## Testing modelling results
+### Testing modelling results
 
-Ran the models that are currently being run in BC only including the 11 grid cells that we worked with in here. Re ran the activity and occupancy models. exactly the same except for switching out the 2025 data to only include SM2 or Chorus unit data. compared if the resulting models were different
+To evaluate how differences in species detectability between detector types affect our activity and occupancy trend estimates, we fit reduced versions of the current provincial models for British Columbia [@hurtado2026BC]. These models were restricted to sites where SM2 and Chorus units were deployed at the same time. We built two parallel datasets that were identical for 2016–2024. They differed only in the 2025 survey year, where detections came from either the Chorus or the SM2 unit at each site. Any difference between the models’ results can therefore be attributed to the detector used in the final year.
+
+#### Activity Trend Models
+
+The model structure followed the provincial activity models exactly [@hurtado2026BC]. These are negative binomial generalized linear mixed models (GLMMs) with species-specific covariates. Starting from the covariates established in the provincial models, we selected covariates by AIC-based stepwise selection, independently for the Chorus and SM2 datasets. Both selections produced the same top model for every species (@tbl-cov). Species tags were assigned using the automated classifications from Kaleidoscope following the methods from @hurtado2026BC.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| include: true
+#| label: tbl-cov
+#| tbl-cap: "Top-performing stationary models selected by AIC-based stepwise selection. Definitions of covariates are: Temperature = nightly temperature (°C); Wind speed = nightly mean wind speed (km/h); RH = nightly mean relative humidity (%); dd = cumulative degree days above 10 °C since January 1; Moon = proportion of the moon illuminated × proportion of the night the moon was above the horizon; Clutter = distance (m) to the nearest clutter object; Nearby water = whether the detector was within 100 m of water (1 = yes, 0 = no); I(YearS²) = quadratic year term allowing for non-linear temporal trends. A * B denotes the main effects of A and B plus their interaction." 
+#| fig.pos: 'H'
+
+library(kableExtra)
+
+model_covariates <- read.csv("Data/Analyzed/ActivityModels/ModelVariables-Chorus.csv") #using the output from Chorus bu SM2 output is the same
+
+#format the covariates df 
+# Species code to common name lookup
+species_names <- c(
+  ANPA = "Pallid Bat",
+  COTO = "Townsend's Big-eared Bat",
+  EPFU = "Big Brown Bat",
+  EUMA = "Spotted Bat",
+  LABO = "Eastern Red Bat",
+  LACI = "Hoary Bat",
+  LANO = "Silver-haired Bat",
+  MYLU = "Little Brown Myotis",
+  MYYU = "Yuma Myotis",
+  MYEV = "Long-eared Myotis",
+  MYTH = "Fringed Myotis",
+  MYVO = "Long-legged Myotis",
+  MYCA = "California Myotis",
+  MYCI = "Western Small-footed Myotis",
+  PAHE = "Canyon Bat",
+  TABR = "Mexican Free-tailed Bat",
+  MYSE = "Northern Myotis"
+)
+
+# Clean covariate from models and format for report
+model_covariates<- model_covariates %>%
+  mutate(
+    Common_Name = species_names[sp],
+    Covariates = vars
+  ) %>%
+  select(Common_Name, Species_Code = sp, Covariates)
+                             
+kable(model_covariates,
+      col.names = c("Species", "Species Code", "Top Performing Model Covariates"),
+      label = "model-covariates") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "left") %>%
+  column_spec(1, width = "15em") %>%
+  column_spec(2, width = "8em") %>%
+  column_spec(3, width = "20em")
+```
+
+All models followed the same basic structure, modelling the total number of detected calls as a negative binomial response with log link:
+
+``` r
+Total detections ~ YearS + log(Sample Nights) + (1|Grid Cell ID/Quadrant)  + species specific covariates
+```
+
+Where total detections is the total number of detected calls of a given species at a site in a given year. YearS is the standardized survey year (years since 2016) and provides the estimate of the temporal activity trend. log(Sample Nights) is the natural logarithm of the number of detector-nights and accounts for variation in sampling effort among site-years. The random intercept (1\|Grid Cell ID/Quadrant) gives one random intercept per cell, plus one per specific quadrant within a cell. This allow baseline activity to vary among grid cells and the quadrants within them.
+
+#### Dynamic Occupancy Trend Models
+
+We fitted multi-season (dynamic) occupancy models [@mackenzie2003] to estimate trends in occupancy, colonization, and persistence while accounting for imperfect detection. Model structure, covariates, and priors followed the provincial models; full details are in @hurtado2026BC. Briefly, initial occupancy ($\psi$) was modelled as a function of distance to water and elevation. Colonization ($\gamma$) and persistence ($\varphi$) were modelled as a function of these same covariates plus year-varying distance to harvest and distance to road. Detection probability ($p$) was modelled as a function of percent clutter, nightly mean temperature, and Julian night.
+
+Repeat surveys were nightly detection/non-detection data, subsampled to every other night (maximum four nights per site-year) to reduce temporal autocorrelation. We excluded 2016 because few sites were surveyed that year, which would have left initial occupancy poorly informed. Sites were retained if they had at least two nights of data in a given year and data from at least two years. Models were fitted separately for each species in JAGS (v4.3.2) via jagsUI (v1.6.3) in R (v4.5.1), using 3 chains of 30,000 iterations (15,000 burn-in, thinning by 10). Convergence was assessed with Rhat (\< 1.1). We summarized the occupancy trend as $\lambda$, the ratio of estimated occupancy in the final year to that in the initial year. A trend was considered an increase or decline when the 95% credible interval excluded 1.
 
 # **Results**
 
@@ -98,6 +170,12 @@ The Bray-Curtis dissimilarity index showed significant overlap between the two r
 ![](images/clipboard-1046142963.png){width="589"}
 
 **Figure 5.** Non-metric multidimensional scaling (NMDS) ordination of bat community composition (Bray-Curtis dissimilarity of relativised call counts; stress = 0.142) for Anabat Chorus and SM2 detectors at 21 paired sites. Each point represents one site-detector combination, with line length indicating agreement in community composition between the two detectors.
+
+## Modelling Comparison
+
+### Activity Trends
+
+### Dynamic Occupancy
 
 # **Discussion**
 
