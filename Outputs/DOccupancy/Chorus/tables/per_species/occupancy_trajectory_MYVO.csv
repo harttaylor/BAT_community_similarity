@@ -1,0 +1,55 @@
+"species","scope","year","mean","lo95","hi95","naive","n_surveyed"
+"MYVO","BC (all sites)",2017,0.3817,0.2381,0.5238,0.3571,14
+"MYVO","BC (all sites)",2018,0.7205,0.619,0.8095,0.7692,13
+"MYVO","BC (all sites)",2019,0.6968,0.6667,0.7619,0.6667,21
+"MYVO","BC (all sites)",2020,0.2297,0.1905,0.3333,0.2105,19
+"MYVO","BC (all sites)",2021,0.7117,0.619,0.8571,0.7222,18
+"MYVO","BC (all sites)",2022,0.8099,0.7143,0.9524,0.75,20
+"MYVO","BC (all sites)",2023,0.8996,0.8095,0.9524,0.8824,17
+"MYVO","BC (all sites)",2024,0.8068,0.619,0.9524,0.6667,18
+"MYVO","BC (all sites)",2025,0.7954,0.6667,0.9524,0.6875,16
+"MYVO","BC (surveyed sites)",2017,0.3693,0.3571,0.4286,0.3571,14
+"MYVO","BC (surveyed sites)",2018,0.7746,0.7692,0.8462,0.7692,13
+"MYVO","BC (surveyed sites)",2019,0.6968,0.6667,0.7619,0.6667,21
+"MYVO","BC (surveyed sites)",2020,0.2263,0.2105,0.3158,0.2105,19
+"MYVO","BC (surveyed sites)",2021,0.7603,0.7222,0.8889,0.7222,18
+"MYVO","BC (surveyed sites)",2022,0.8214,0.75,0.95,0.75,20
+"MYVO","BC (surveyed sites)",2023,0.9057,0.8824,1,0.8824,17
+"MYVO","BC (surveyed sites)",2024,0.8129,0.6667,0.9444,0.6667,18
+"MYVO","BC (surveyed sites)",2025,0.7797,0.6875,1,0.6875,16
+"MYVO","BC (region-weighted)",2017,0.2811,0.1786,0.4325,NA,14
+"MYVO","BC (region-weighted)",2018,0.8024,0.7381,0.869,NA,13
+"MYVO","BC (region-weighted)",2019,0.7865,0.7659,0.8413,NA,21
+"MYVO","BC (region-weighted)",2020,0.4142,0.3889,0.4921,NA,19
+"MYVO","BC (region-weighted)",2021,0.7642,0.6984,0.877,NA,18
+"MYVO","BC (region-weighted)",2022,0.865,0.7937,0.9722,NA,20
+"MYVO","BC (region-weighted)",2023,0.9182,0.7778,0.9722,NA,17
+"MYVO","BC (region-weighted)",2024,0.8611,0.7381,0.9722,NA,18
+"MYVO","BC (region-weighted)",2025,0.8062,0.5873,0.9722,NA,16
+"MYVO","Kootenay Region",2017,0.4347,0.25,0.6667,0.4286,7
+"MYVO","Kootenay Region",2018,0.6558,0.5,0.75,0.6,5
+"MYVO","Kootenay Region",2019,0.6233,0.5833,0.75,0.5833,12
+"MYVO","Kootenay Region",2020,0.2251,0.1667,0.4167,0.2,10
+"MYVO","Kootenay Region",2021,0.7797,0.6667,0.9167,0.8889,9
+"MYVO","Kootenay Region",2022,0.7685,0.6667,0.9167,0.6667,12
+"MYVO","Kootenay Region",2023,0.9074,0.8333,1,0.9091,11
+"MYVO","Kootenay Region",2024,0.772,0.5833,1,0.6,10
+"MYVO","Kootenay Region",2025,0.8913,0.75,1,0.8889,9
+"MYVO","Northern Region",2017,0.0123,0,0,0,2
+"MYVO","Northern Region",2018,1,1,1,1,2
+"MYVO","Northern Region",2019,1,1,1,1,2
+"MYVO","Northern Region",2020,1,1,1,1,2
+"MYVO","Northern Region",2021,1,1,1,1,2
+"MYVO","Northern Region",2022,1,1,1,1,2
+"MYVO","Northern Region",2023,0.9857,0.5,1,1,1
+"MYVO","Northern Region",2024,1,1,1,1,2
+"MYVO","Northern Region",2025,0.9369,0.5,1,NA,0
+"MYVO","Okanagan Region",2017,0.3963,0.2857,0.7143,0.4,5
+"MYVO","Okanagan Region",2018,0.7515,0.7143,0.8571,0.8333,6
+"MYVO","Okanagan Region",2019,0.7363,0.7143,0.8571,0.7143,7
+"MYVO","Okanagan Region",2020,0.0175,0,0.1429,0,7
+"MYVO","Okanagan Region",2021,0.5128,0.4286,0.8571,0.4286,7
+"MYVO","Okanagan Region",2022,0.8266,0.7143,1,0.8333,6
+"MYVO","Okanagan Region",2023,0.8615,0.7143,1,0.8,5
+"MYVO","Okanagan Region",2024,0.8115,0.5714,1,0.6667,6
+"MYVO","Okanagan Region",2025,0.5905,0.4286,1,0.4286,7

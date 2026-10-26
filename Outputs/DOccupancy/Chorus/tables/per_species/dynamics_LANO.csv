@@ -1,0 +1,65 @@
+"species","scope","process","year","mean","lo95","hi95"
+"LANO","BC (all sites)","Colonization",2018,0.9401,0.5,1
+"LANO","BC (all sites)","Colonization",2019,0.83,0,1
+"LANO","BC (all sites)","Colonization",2020,0.9578,0,1
+"LANO","BC (all sites)","Colonization",2021,0.5613,0,0.8333
+"LANO","BC (all sites)","Colonization",2022,0.617,0,0.8333
+"LANO","BC (all sites)","Colonization",2023,1,1,1
+"LANO","BC (all sites)","Colonization",2024,0.9081,0.5,1
+"LANO","BC (all sites)","Colonization",2025,0.6209,0,1
+"LANO","BC (all sites)","Persistence",2018,0.9884,0.8889,1
+"LANO","BC (all sites)","Persistence",2019,0.9716,0.9,1
+"LANO","BC (all sites)","Persistence",2020,0.7527,0.6667,0.8947
+"LANO","BC (all sites)","Persistence",2021,0.9088,0.7557,1
+"LANO","BC (all sites)","Persistence",2022,0.9975,0.9444,1
+"LANO","BC (all sites)","Persistence",2023,0.8496,0.75,0.95
+"LANO","BC (all sites)","Persistence",2024,0.998,0.9444,1
+"LANO","BC (all sites)","Persistence",2025,0.994,0.95,1
+"LANO","Kootenay Region","Colonization",2018,0.8941,0,1
+"LANO","Kootenay Region","Colonization",2019,NA,NA,NA
+"LANO","Kootenay Region","Colonization",2020,0.9578,0,1
+"LANO","Kootenay Region","Colonization",2021,0.7008,0,1
+"LANO","Kootenay Region","Colonization",2022,1,1,1
+"LANO","Kootenay Region","Colonization",2023,NA,NA,NA
+"LANO","Kootenay Region","Colonization",2024,0.911,0.5,1
+"LANO","Kootenay Region","Colonization",2025,NA,NA,NA
+"LANO","Kootenay Region","Persistence",2018,0.9861,0.8571,1
+"LANO","Kootenay Region","Persistence",2019,0.9496,0.8182,1
+"LANO","Kootenay Region","Persistence",2020,0.868,0.75,1
+"LANO","Kootenay Region","Persistence",2021,0.9351,0.7273,1
+"LANO","Kootenay Region","Persistence",2022,1,1,1
+"LANO","Kootenay Region","Persistence",2023,0.7842,0.75,0.9167
+"LANO","Kootenay Region","Persistence",2024,0.9983,1,1
+"LANO","Kootenay Region","Persistence",2025,0.9922,0.9167,1
+"LANO","Northern Region","Colonization",2018,NA,NA,NA
+"LANO","Northern Region","Colonization",2019,NA,NA,NA
+"LANO","Northern Region","Colonization",2020,NA,NA,NA
+"LANO","Northern Region","Colonization",2021,NA,NA,NA
+"LANO","Northern Region","Colonization",2022,NA,NA,NA
+"LANO","Northern Region","Colonization",2023,NA,NA,NA
+"LANO","Northern Region","Colonization",2024,NA,NA,NA
+"LANO","Northern Region","Colonization",2025,NA,NA,NA
+"LANO","Northern Region","Persistence",2018,1,1,1
+"LANO","Northern Region","Persistence",2019,1,1,1
+"LANO","Northern Region","Persistence",2020,1,1,1
+"LANO","Northern Region","Persistence",2021,1,1,1
+"LANO","Northern Region","Persistence",2022,1,1,1
+"LANO","Northern Region","Persistence",2023,0.9671,0.5,1
+"LANO","Northern Region","Persistence",2024,1,1,1
+"LANO","Northern Region","Persistence",2025,0.984,0.5,1
+"LANO","Okanagan Region","Colonization",2018,1,1,1
+"LANO","Okanagan Region","Colonization",2019,NA,NA,NA
+"LANO","Okanagan Region","Colonization",2020,NA,NA,NA
+"LANO","Okanagan Region","Colonization",2021,0.5139,0,0.75
+"LANO","Okanagan Region","Colonization",2022,0.4391,0,0.6667
+"LANO","Okanagan Region","Colonization",2023,1,1,1
+"LANO","Okanagan Region","Colonization",2024,NA,NA,NA
+"LANO","Okanagan Region","Colonization",2025,NA,NA,NA
+"LANO","Okanagan Region","Persistence",2018,0.9882,0.8158,1
+"LANO","Okanagan Region","Persistence",2019,1,1,1
+"LANO","Okanagan Region","Persistence",2020,0.4953,0.4286,0.7143
+"LANO","Okanagan Region","Persistence",2021,0.776,0.5,1
+"LANO","Okanagan Region","Persistence",2022,0.9914,0.8,1
+"LANO","Okanagan Region","Persistence",2023,0.9462,0.6667,1
+"LANO","Okanagan Region","Persistence",2024,0.9971,1,1
+"LANO","Okanagan Region","Persistence",2025,1,1,1

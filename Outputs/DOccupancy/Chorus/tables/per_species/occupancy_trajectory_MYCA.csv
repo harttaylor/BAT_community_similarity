@@ -1,0 +1,55 @@
+"species","scope","year","mean","lo95","hi95","naive","n_surveyed"
+"MYCA","BC (all sites)",2017,0.7502,0.619,0.8571,0.6429,14
+"MYCA","BC (all sites)",2018,0.8884,0.7619,0.9524,0.8462,13
+"MYCA","BC (all sites)",2019,0.755,0.619,0.8571,0.619,21
+"MYCA","BC (all sites)",2020,0.6915,0.5714,0.8095,0.5263,19
+"MYCA","BC (all sites)",2021,0.7956,0.7143,0.8571,0.7778,18
+"MYCA","BC (all sites)",2022,0.8467,0.8095,0.9048,0.85,20
+"MYCA","BC (all sites)",2023,0.8431,0.7619,0.9048,0.8824,17
+"MYCA","BC (all sites)",2024,0.8481,0.7619,0.9048,0.8333,18
+"MYCA","BC (all sites)",2025,0.8019,0.6667,0.9048,0.75,16
+"MYCA","BC (surveyed sites)",2017,0.6836,0.6429,0.7857,0.6429,14
+"MYCA","BC (surveyed sites)",2018,0.8858,0.8462,0.9231,0.8462,13
+"MYCA","BC (surveyed sites)",2019,0.755,0.619,0.8571,0.619,21
+"MYCA","BC (surveyed sites)",2020,0.6749,0.5789,0.7895,0.5263,19
+"MYCA","BC (surveyed sites)",2021,0.7878,0.7778,0.8333,0.7778,18
+"MYCA","BC (surveyed sites)",2022,0.8637,0.85,0.9,0.85,20
+"MYCA","BC (surveyed sites)",2023,0.9045,0.8824,0.9412,0.8824,17
+"MYCA","BC (surveyed sites)",2024,0.8529,0.8333,0.9444,0.8333,18
+"MYCA","BC (surveyed sites)",2025,0.8148,0.75,0.9375,0.75,16
+"MYCA","BC (region-weighted)",2017,0.5443,0.4405,0.7381,NA,14
+"MYCA","BC (region-weighted)",2018,0.8431,0.7024,0.9524,NA,13
+"MYCA","BC (region-weighted)",2019,0.7211,0.5992,0.877,NA,21
+"MYCA","BC (region-weighted)",2020,0.6397,0.4921,0.8095,NA,19
+"MYCA","BC (region-weighted)",2021,0.7237,0.6548,0.877,NA,18
+"MYCA","BC (region-weighted)",2022,0.8612,0.8294,0.9048,NA,20
+"MYCA","BC (region-weighted)",2023,0.8242,0.6825,0.9246,NA,17
+"MYCA","BC (region-weighted)",2024,0.8673,0.8016,0.9246,NA,18
+"MYCA","BC (region-weighted)",2025,0.7652,0.4881,0.9246,NA,16
+"MYCA","Kootenay Region",2017,0.9111,0.6667,1,0.8571,7
+"MYCA","Kootenay Region",2018,0.948,0.8333,1,1,5
+"MYCA","Kootenay Region",2019,0.794,0.5833,0.9167,0.5833,12
+"MYCA","Kootenay Region",2020,0.931,0.75,1,0.8,10
+"MYCA","Kootenay Region",2021,0.8792,0.75,0.9167,0.8889,9
+"MYCA","Kootenay Region",2022,0.9393,0.9167,1,0.9167,12
+"MYCA","Kootenay Region",2023,0.8634,0.8333,0.9167,0.8182,11
+"MYCA","Kootenay Region",2024,0.919,0.8333,1,0.9,10
+"MYCA","Kootenay Region",2025,0.8517,0.6667,1,0.7778,9
+"MYCA","Northern Region",2017,0.0463,0,0.5,0,2
+"MYCA","Northern Region",2018,0.7576,0.5,1,0.5,2
+"MYCA","Northern Region",2019,0.6516,0.5,1,0.5,2
+"MYCA","Northern Region",2020,0.7136,0.5,1,0.5,2
+"MYCA","Northern Region",2021,0.5776,0.5,1,0.5,2
+"MYCA","Northern Region",2022,1,1,1,1,2
+"MYCA","Northern Region",2023,0.784,0.5,1,1,1
+"MYCA","Northern Region",2024,1,1,1,1,2
+"MYCA","Northern Region",2025,0.6974,0,1,NA,0
+"MYCA","Okanagan Region",2017,0.6755,0.4286,0.8571,0.6,5
+"MYCA","Okanagan Region",2018,0.8237,0.7143,0.8571,0.8333,6
+"MYCA","Okanagan Region",2019,0.7178,0.7143,0.7143,0.7143,7
+"MYCA","Okanagan Region",2020,0.2746,0.1429,0.5714,0.1429,7
+"MYCA","Okanagan Region",2021,0.7144,0.7143,0.7143,0.7143,7
+"MYCA","Okanagan Region",2022,0.6443,0.5714,0.7143,0.6667,6
+"MYCA","Okanagan Region",2023,0.8252,0.7143,1,1,5
+"MYCA","Okanagan Region",2024,0.683,0.5714,0.8571,0.6667,6
+"MYCA","Okanagan Region",2025,0.7465,0.7143,0.8571,0.7143,7

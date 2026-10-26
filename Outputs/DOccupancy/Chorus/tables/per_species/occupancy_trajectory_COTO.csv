@@ -1,0 +1,55 @@
+"species","scope","year","mean","lo95","hi95","naive","n_surveyed"
+"COTO","BC (all sites)",2017,0.4062,0.2381,0.5714,0.2857,14
+"COTO","BC (all sites)",2018,0.6578,0.5238,0.8095,0.5385,13
+"COTO","BC (all sites)",2019,0.409,0.3333,0.5238,0.2857,21
+"COTO","BC (all sites)",2020,0.3749,0.2381,0.5238,0.2105,19
+"COTO","BC (all sites)",2021,0.5554,0.4286,0.6667,0.5,18
+"COTO","BC (all sites)",2022,0.3897,0.2857,0.5238,0.3,20
+"COTO","BC (all sites)",2023,0.6374,0.5238,0.8095,0.5882,17
+"COTO","BC (all sites)",2024,0.6016,0.5238,0.7143,0.5556,18
+"COTO","BC (all sites)",2025,0.471,0.381,0.5714,0.375,16
+"COTO","BC (surveyed sites)",2017,0.3336,0.2857,0.4286,0.2857,14
+"COTO","BC (surveyed sites)",2018,0.6782,0.6154,0.7692,0.5385,13
+"COTO","BC (surveyed sites)",2019,0.409,0.3333,0.5238,0.2857,21
+"COTO","BC (surveyed sites)",2020,0.4088,0.2632,0.5789,0.2105,19
+"COTO","BC (surveyed sites)",2021,0.5513,0.5,0.6667,0.5,18
+"COTO","BC (surveyed sites)",2022,0.4053,0.3,0.55,0.3,20
+"COTO","BC (surveyed sites)",2023,0.6922,0.5882,0.8235,0.5882,17
+"COTO","BC (surveyed sites)",2024,0.6218,0.5556,0.7222,0.5556,18
+"COTO","BC (surveyed sites)",2025,0.4919,0.375,0.625,0.375,16
+"COTO","BC (region-weighted)",2017,0.265,0.1389,0.373,NA,14
+"COTO","BC (region-weighted)",2018,0.4915,0.4048,0.5913,NA,13
+"COTO","BC (region-weighted)",2019,0.2787,0.2341,0.3452,NA,21
+"COTO","BC (region-weighted)",2020,0.2444,0.1389,0.3651,NA,19
+"COTO","BC (region-weighted)",2021,0.3899,0.3095,0.4881,NA,18
+"COTO","BC (region-weighted)",2022,0.2561,0.1865,0.3651,NA,20
+"COTO","BC (region-weighted)",2023,0.4617,0.3651,0.6111,NA,17
+"COTO","BC (region-weighted)",2024,0.4189,0.3651,0.5159,NA,18
+"COTO","BC (region-weighted)",2025,0.3178,0.2619,0.3929,NA,16
+"COTO","Kootenay Region",2017,0.5931,0.3333,0.8333,0.5714,7
+"COTO","Kootenay Region",2018,0.6983,0.5,0.9167,0.4,5
+"COTO","Kootenay Region",2019,0.5471,0.4167,0.75,0.3333,12
+"COTO","Kootenay Region",2020,0.5483,0.4167,0.75,0.4,10
+"COTO","Kootenay Region",2021,0.6951,0.5,0.8333,0.6667,9
+"COTO","Kootenay Region",2022,0.5612,0.4167,0.75,0.4167,12
+"COTO","Kootenay Region",2023,0.738,0.5833,0.8771,0.6364,11
+"COTO","Kootenay Region",2024,0.7671,0.6667,0.9167,0.7,10
+"COTO","Kootenay Region",2025,0.6432,0.5,0.8333,0.4444,9
+"COTO","Northern Region",2017,0,0,0,0,2
+"COTO","Northern Region",2018,0,0,0,0,2
+"COTO","Northern Region",2019,0,0,0,0,2
+"COTO","Northern Region",2020,0,0,0,0,2
+"COTO","Northern Region",2021,0,0,0,0,2
+"COTO","Northern Region",2022,0,0,0,0,2
+"COTO","Northern Region",2023,0,0,0,0,1
+"COTO","Northern Region",2024,0,0,0,0,2
+"COTO","Northern Region",2025,0,0,0,NA,0
+"COTO","Okanagan Region",2017,0.2018,0,0.4286,0,5
+"COTO","Okanagan Region",2018,0.7763,0.7143,1,0.8333,6
+"COTO","Okanagan Region",2019,0.2891,0.2857,0.2857,0.2857,7
+"COTO","Okanagan Region",2020,0.1848,0,0.4286,0,7
+"COTO","Okanagan Region",2021,0.4747,0.4286,0.7143,0.4286,7
+"COTO","Okanagan Region",2022,0.207,0.1429,0.4286,0.1667,6
+"COTO","Okanagan Region",2023,0.6471,0.4286,1,0.6,5
+"COTO","Okanagan Region",2024,0.4897,0.4286,0.7143,0.5,6
+"COTO","Okanagan Region",2025,0.3102,0.2857,0.4286,0.2857,7

@@ -43,9 +43,9 @@ library(jagsUI)
 # a # in front of every line of the other. Use the same block in 01a, 01b, 02.
 
 # --- BC report: every species ---
-INPUT_DIR   <- "Data/Analyzed/DOccupancy"
+INPUT_DIR   <- "Data/Analyzed/DOccupancy/SM2Data"
 OUTPUT_DIR  <- "Data/Analyzed/DOccupancy/SM2Fits"
-det_summary <- read.csv(file.path(INPUT_DIR, "species_detection_summary_SM2.csv"))
+det_summary <- read.csv(file.path(INPUT_DIR, "species_detection_summary.csv"))
 ALL_SPECIES <- det_summary$species
 
 
@@ -67,7 +67,7 @@ dir.create(OUTPUT_DIR, recursive = TRUE, showWarnings = FALSE)
 # 1. LOAD THE SPECIES DATA
 # ============================================================================
 
-d <- readRDS(file.path(INPUT_DIR, paste0("QUAD_", SPECIES, "_data_SM2.rds")))
+d <- readRDS(file.path(INPUT_DIR, paste0("QUAD_", SPECIES, "_data.rds")))
 
 # Everything the model needs must be present and numeric. JAGS reports a
 # missing element as "not numeric", so check here and fail with a clear message.
@@ -225,7 +225,7 @@ model {
 }
 "
 
-model_file <- file.path(OUTPUT_DIR, "model_dynocc_SM2.txt")
+model_file <- file.path(OUTPUT_DIR, "model_dynocc.txt")
 writeLines(model_code, model_file)
 
 # ============================================================================
@@ -318,11 +318,11 @@ fit <- jags(data = jags_data, inits = inits, parameters.to.save = params,
 runtime_min <- round(as.numeric(difftime(Sys.time(), t0, units = "mins")), 1)
 runtime_min
 
-saveRDS(fit, file.path(OUTPUT_DIR, paste0("QUAD_", SPECIES, "_fit_SM2.rds")))
+saveRDS(fit, file.path(OUTPUT_DIR, paste0("QUAD_", SPECIES, "_fit.rds")))
 
 summ <- fit$summary
 write.csv(data.frame(parameter = rownames(summ), summ, check.names = FALSE),
-          file.path(OUTPUT_DIR, paste0("QUAD_", SPECIES, "_summary_SM2.csv")),
+          file.path(OUTPUT_DIR, paste0("QUAD_", SPECIES, "_summary.csv")),
           row.names = FALSE)
 
 # ============================================================================
@@ -424,7 +424,7 @@ region_log  <- NULL
 
 for (sp in ALL_SPECIES) {
   
-  d <- readRDS(file.path(INPUT_DIR, paste0("QUAD_", sp, "_data_SM2.rds")))
+  d <- readRDS(file.path(INPUT_DIR, paste0("QUAD_", sp, "_data.rds")))
   nyear <- d$nyear; nregion <- d$nregion
   n_det <- sum(d$y == 1, na.rm = TRUE)
   cat("\n", sp, ": ", n_det, " detections, started ", format(Sys.time(), "%H:%M"), "\n", sep = "")
@@ -460,10 +460,10 @@ for (sp in ALL_SPECIES) {
       row$status <- paste("failed:", conditionMessage(fit))
     } else {
       row$status <- "ok"
-      saveRDS(fit, file.path(OUTPUT_DIR, paste0("QUAD_", sp, "_fit_SM2.rds")))
+      saveRDS(fit, file.path(OUTPUT_DIR, paste0("QUAD_", sp, "_fit.rds")))
       summ <- fit$summary
       write.csv(data.frame(parameter = rownames(summ), summ, check.names = FALSE),
-                file.path(OUTPUT_DIR, paste0("QUAD_", sp, "_summary_SM2.csv")),
+                file.path(OUTPUT_DIR, paste0("QUAD_", sp, "_summary.csv")),
                 row.names = FALSE)
       
       key <- grepl("^(b\\.|a\\.p$|sigma|psi\\.fs|psi\\.surv|psi\\.reg\\[|mean\\.p)", rownames(summ))
@@ -515,8 +515,8 @@ for (sp in ALL_SPECIES) {
   }
   species_log <- rbind(species_log, row)
   
-  write.csv(species_log, file.path(OUTPUT_DIR, "run_log_species_SM2.csv"), row.names = FALSE)
+  write.csv(species_log, file.path(OUTPUT_DIR, "run_log_species.csv"), row.names = FALSE)
   if (!is.null(region_log))
-    write.csv(region_log, file.path(OUTPUT_DIR, "run_log_regions_SM2.csv"), row.names = FALSE)
+    write.csv(region_log, file.path(OUTPUT_DIR, "run_log_regions.csv"), row.names = FALSE)
 }
 

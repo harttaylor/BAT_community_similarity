@@ -1,0 +1,65 @@
+"species","scope","process","year","mean","lo95","hi95"
+"MYVO","BC (all sites)","Colonization",2018,0.5601,0.3636,0.7333
+"MYVO","BC (all sites)","Colonization",2019,0.2369,0,0.5
+"MYVO","BC (all sites)","Colonization",2020,0.0205,0,0.2
+"MYVO","BC (all sites)","Colonization",2021,0.6279,0.5,0.8235
+"MYVO","BC (all sites)","Colonization",2022,0.4735,0.1667,1
+"MYVO","BC (all sites)","Colonization",2023,0.7615,0.5,1
+"MYVO","BC (all sites)","Colonization",2024,0.3092,0,0.75
+"MYVO","BC (all sites)","Colonization",2025,0.4175,0,0.8571
+"MYVO","BC (all sites)","Persistence",2018,0.9766,0.8,1
+"MYVO","BC (all sites)","Persistence",2019,0.8793,0.75,1
+"MYVO","BC (all sites)","Persistence",2020,0.3118,0.25,0.4667
+"MYVO","BC (all sites)","Persistence",2021,0.9729,0.8,1
+"MYVO","BC (all sites)","Persistence",2022,0.9252,0.7647,1
+"MYVO","BC (all sites)","Persistence",2023,0.9273,0.8125,1
+"MYVO","BC (all sites)","Persistence",2024,0.8787,0.6842,1
+"MYVO","BC (all sites)","Persistence",2025,0.5373,0.375,0.7
+"MYVO","Kootenay Region","Colonization",2018,0.4082,0.1667,0.6667
+"MYVO","Kootenay Region","Colonization",2019,0.0906,0,0.4
+"MYVO","Kootenay Region","Colonization",2020,0.0066,0,0.2
+"MYVO","Kootenay Region","Colonization",2021,0.7129,0.5556,0.9
+"MYVO","Kootenay Region","Colonization",2022,0.2235,0,1
+"MYVO","Kootenay Region","Colonization",2023,0.6594,0,1
+"MYVO","Kootenay Region","Colonization",2024,0.0209,0,0
+"MYVO","Kootenay Region","Colonization",2025,0.3864,0,1
+"MYVO","Kootenay Region","Persistence",2018,0.9653,0.6667,1
+"MYVO","Kootenay Region","Persistence",2019,0.9149,0.75,1
+"MYVO","Kootenay Region","Persistence",2020,0.3248,0.2222,0.5714
+"MYVO","Kootenay Region","Persistence",2021,0.9839,0.6667,1
+"MYVO","Kootenay Region","Persistence",2022,0.9002,0.7,1
+"MYVO","Kootenay Region","Persistence",2023,0.9813,0.875,1
+"MYVO","Kootenay Region","Persistence",2024,0.8493,0.6364,1
+"MYVO","Kootenay Region","Persistence",2025,0.6259,0.5,0.8182
+"MYVO","Northern Region","Colonization",2018,1,1,1
+"MYVO","Northern Region","Colonization",2019,NA,NA,NA
+"MYVO","Northern Region","Colonization",2020,NA,NA,NA
+"MYVO","Northern Region","Colonization",2021,NA,NA,NA
+"MYVO","Northern Region","Colonization",2022,NA,NA,NA
+"MYVO","Northern Region","Colonization",2023,NA,NA,NA
+"MYVO","Northern Region","Colonization",2024,NA,NA,NA
+"MYVO","Northern Region","Colonization",2025,NA,NA,NA
+"MYVO","Northern Region","Persistence",2018,NA,NA,NA
+"MYVO","Northern Region","Persistence",2019,1,1,1
+"MYVO","Northern Region","Persistence",2020,1,1,1
+"MYVO","Northern Region","Persistence",2021,1,1,1
+"MYVO","Northern Region","Persistence",2022,1,1,1
+"MYVO","Northern Region","Persistence",2023,0.9893,1,1
+"MYVO","Northern Region","Persistence",2024,1,1,1
+"MYVO","Northern Region","Persistence",2025,0.8077,0,1
+"MYVO","Okanagan Region","Colonization",2018,0.5701,0.3333,0.8
+"MYVO","Okanagan Region","Colonization",2019,0.618,0,1
+"MYVO","Okanagan Region","Colonization",2020,0.0518,0,0.5
+"MYVO","Okanagan Region","Colonization",2021,0.5078,0.3333,0.8333
+"MYVO","Okanagan Region","Colonization",2022,0.666,0.3333,1
+"MYVO","Okanagan Region","Colonization",2023,1,1,1
+"MYVO","Okanagan Region","Colonization",2024,0.7352,0,1
+"MYVO","Okanagan Region","Colonization",2025,0.577,0,1
+"MYVO","Okanagan Region","Persistence",2018,0.9978,1,1
+"MYVO","Okanagan Region","Persistence",2019,0.7836,0.6667,1
+"MYVO","Okanagan Region","Persistence",2020,0.0235,0,0.2
+"MYVO","Okanagan Region","Persistence",2021,NA,NA,NA
+"MYVO","Okanagan Region","Persistence",2022,0.9573,0.75,1
+"MYVO","Okanagan Region","Persistence",2023,0.8182,0.6,1
+"MYVO","Okanagan Region","Persistence",2024,0.8926,0.6667,1
+"MYVO","Okanagan Region","Persistence",2025,0.3093,0.1667,0.6

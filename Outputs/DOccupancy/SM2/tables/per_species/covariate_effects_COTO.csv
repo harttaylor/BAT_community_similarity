@@ -1,0 +1,14 @@
+"species","process","covariate","param","mean","lo95","hi95","lo50","hi50","f","excludes_zero"
+"COTO","Initial occupancy","Elevation","b.psi.elev",-0.8438,-2.4993,0.7716,-1.3901,-0.2988,0.8453,FALSE
+"COTO","Initial occupancy","Distance to water","b.psi.water",0.1905,-1.9079,2.3383,-0.5251,0.8838,0.5773,FALSE
+"COTO","Colonization","Elevation","b.gam.elev",-0.2849,-1.7623,1.164,-0.7386,0.1666,0.6642,FALSE
+"COTO","Colonization","Distance to water","b.gam.water",-0.8292,-3.1158,0.8072,-1.4059,-0.1527,0.8164,FALSE
+"COTO","Colonization","Distance to road","b.gam.road",-1.8361,-4.1654,-0.1847,-2.4543,-1.0943,0.9884,TRUE
+"COTO","Colonization","Distance to harvest","b.gam.harv",-1.4322,-3.6676,0.3714,-2.0632,-0.741,0.9329,FALSE
+"COTO","Persistence","Elevation","b.phi.elev",-0.3614,-1.8236,0.891,-0.7844,0.0915,0.6996,FALSE
+"COTO","Persistence","Distance to water","b.phi.water",0.0574,-2.0312,1.8305,-0.674,0.817,0.5531,FALSE
+"COTO","Persistence","Distance to road","b.phi.road",2.115,0.6618,3.8633,1.5423,2.6347,0.9984,TRUE
+"COTO","Persistence","Distance to harvest","b.phi.harv",-0.3665,-1.2786,0.6002,-0.6843,-0.0561,0.7867,FALSE
+"COTO","Detection","Clutter","b.p.clutter",0.0916,-0.2368,0.4156,-0.0164,0.2001,0.7167,FALSE
+"COTO","Detection","Temperature","b.p.temp",0.3685,0.1238,0.6224,0.2826,0.453,0.9987,TRUE
+"COTO","Detection","Julian date","b.p.julian",-0.8238,-1.2059,-0.4618,-0.9423,-0.6997,1,TRUE

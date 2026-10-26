@@ -1,0 +1,55 @@
+"species","scope","year","mean","lo95","hi95","naive","n_surveyed"
+"MYTH","BC (all sites)",2017,0.3441,0.1905,0.5238,0.2143,14
+"MYTH","BC (all sites)",2018,0.3665,0.1905,0.5714,0.2308,13
+"MYTH","BC (all sites)",2019,0.3637,0.2381,0.5238,0.2381,21
+"MYTH","BC (all sites)",2020,0.3589,0.1905,0.5714,0.1053,19
+"MYTH","BC (all sites)",2021,0.357,0.2381,0.4762,0.2778,18
+"MYTH","BC (all sites)",2022,0.3766,0.2381,0.5238,0.25,20
+"MYTH","BC (all sites)",2023,0.3379,0.2381,0.5238,0.2353,17
+"MYTH","BC (all sites)",2024,0.3865,0.1905,0.619,0.2222,18
+"MYTH","BC (all sites)",2025,0.3139,0.1429,0.5238,0.1875,16
+"MYTH","BC (surveyed sites)",2017,0.2835,0.2143,0.5,0.2143,14
+"MYTH","BC (surveyed sites)",2018,0.3581,0.2308,0.5385,0.2308,13
+"MYTH","BC (surveyed sites)",2019,0.3637,0.2381,0.5238,0.2381,21
+"MYTH","BC (surveyed sites)",2020,0.3396,0.1579,0.5263,0.1053,19
+"MYTH","BC (surveyed sites)",2021,0.3807,0.2778,0.5,0.2778,18
+"MYTH","BC (surveyed sites)",2022,0.3623,0.25,0.55,0.25,20
+"MYTH","BC (surveyed sites)",2023,0.3306,0.2353,0.5294,0.2353,17
+"MYTH","BC (surveyed sites)",2024,0.3745,0.2222,0.6111,0.2222,18
+"MYTH","BC (surveyed sites)",2025,0.3487,0.1875,0.5625,0.1875,16
+"MYTH","BC (region-weighted)",2017,0.2904,0.1905,0.4246,NA,14
+"MYTH","BC (region-weighted)",2018,0.2948,0.1706,0.4325,NA,13
+"MYTH","BC (region-weighted)",2019,0.3002,0.2183,0.4048,NA,21
+"MYTH","BC (region-weighted)",2020,0.283,0.1508,0.4325,NA,19
+"MYTH","BC (region-weighted)",2021,0.2874,0.1984,0.3968,NA,18
+"MYTH","BC (region-weighted)",2022,0.3015,0.1984,0.4246,NA,20
+"MYTH","BC (region-weighted)",2023,0.2722,0.1786,0.4048,NA,17
+"MYTH","BC (region-weighted)",2024,0.3292,0.1905,0.4802,NA,18
+"MYTH","BC (region-weighted)",2025,0.249,0.123,0.4246,NA,16
+"MYTH","Kootenay Region",2017,0.2255,0,0.5833,0,7
+"MYTH","Kootenay Region",2018,0.3011,0,0.5833,0,5
+"MYTH","Kootenay Region",2019,0.2671,0.0833,0.5,0.0833,12
+"MYTH","Kootenay Region",2020,0.319,0.0833,0.5833,0.1,10
+"MYTH","Kootenay Region",2021,0.2924,0.1667,0.5,0.2222,9
+"MYTH","Kootenay Region",2022,0.3154,0.1667,0.5833,0.1667,12
+"MYTH","Kootenay Region",2023,0.2761,0.1667,0.5,0.1818,11
+"MYTH","Kootenay Region",2024,0.2406,0,0.5833,0,10
+"MYTH","Kootenay Region",2025,0.2725,0.0833,0.5,0.1111,9
+"MYTH","Northern Region",2017,0,0,0,0,2
+"MYTH","Northern Region",2018,0,0,0,0,2
+"MYTH","Northern Region",2019,0,0,0,0,2
+"MYTH","Northern Region",2020,0,0,0,0,2
+"MYTH","Northern Region",2021,0,0,0,0,2
+"MYTH","Northern Region",2022,0,0,0,0,2
+"MYTH","Northern Region",2023,0,0,0,0,1
+"MYTH","Northern Region",2024,0,0,0,0,2
+"MYTH","Northern Region",2025,0,0,0,NA,0
+"MYTH","Okanagan Region",2017,0.6457,0.4286,1,0.6,5
+"MYTH","Okanagan Region",2018,0.5834,0.4286,0.8571,0.5,6
+"MYTH","Okanagan Region",2019,0.6334,0.5714,0.8571,0.5714,7
+"MYTH","Okanagan Region",2020,0.5299,0.2857,0.7143,0.1429,7
+"MYTH","Okanagan Region",2021,0.5697,0.4286,0.8571,0.4286,7
+"MYTH","Okanagan Region",2022,0.5891,0.4286,0.8571,0.5,6
+"MYTH","Okanagan Region",2023,0.5404,0.2857,0.8571,0.4,5
+"MYTH","Okanagan Region",2024,0.747,0.5714,1,0.6667,6
+"MYTH","Okanagan Region",2025,0.4745,0.2857,0.8571,0.2857,7

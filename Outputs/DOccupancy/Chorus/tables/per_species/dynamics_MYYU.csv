@@ -1,0 +1,65 @@
+"species","scope","process","year","mean","lo95","hi95"
+"MYYU","BC (all sites)","Colonization",2018,0.3357,0,0.7778
+"MYYU","BC (all sites)","Colonization",2019,0.1533,0,0.5
+"MYYU","BC (all sites)","Colonization",2020,0.088,0,0.4444
+"MYYU","BC (all sites)","Colonization",2021,0.1224,0.0588,0.3333
+"MYYU","BC (all sites)","Colonization",2022,0.3307,0.0909,0.7211
+"MYYU","BC (all sites)","Colonization",2023,0.7353,0.4545,1
+"MYYU","BC (all sites)","Colonization",2024,0.2952,0.1111,0.8571
+"MYYU","BC (all sites)","Colonization",2025,0.0821,0,0.4
+"MYYU","BC (all sites)","Persistence",2018,0.7338,0.5,1
+"MYYU","BC (all sites)","Persistence",2019,0.7694,0.5333,1
+"MYYU","BC (all sites)","Persistence",2020,0.6341,0.3,0.9
+"MYYU","BC (all sites)","Persistence",2021,0.8626,0.5556,1
+"MYYU","BC (all sites)","Persistence",2022,0.8206,0.625,0.9
+"MYYU","BC (all sites)","Persistence",2023,0.6605,0.5,0.8333
+"MYYU","BC (all sites)","Persistence",2024,0.6502,0.4667,0.8462
+"MYYU","BC (all sites)","Persistence",2025,0.6875,0.4444,0.9091
+"MYYU","Kootenay Region","Colonization",2018,0.3391,0,1
+"MYYU","Kootenay Region","Colonization",2019,0.1145,0,0.5
+"MYYU","Kootenay Region","Colonization",2020,0.1019,0,0.5
+"MYYU","Kootenay Region","Colonization",2021,0.1552,0,0.4
+"MYYU","Kootenay Region","Colonization",2022,0.2996,0.1429,0.625
+"MYYU","Kootenay Region","Colonization",2023,0.7588,0.6,1
+"MYYU","Kootenay Region","Colonization",2024,0.3884,0.25,1
+"MYYU","Kootenay Region","Colonization",2025,0.0524,0,0.4
+"MYYU","Kootenay Region","Persistence",2018,0.5648,0.2857,1
+"MYYU","Kootenay Region","Persistence",2019,0.6723,0.25,1
+"MYYU","Kootenay Region","Persistence",2020,0.7993,0.4,1
+"MYYU","Kootenay Region","Persistence",2021,0.8663,0.5,1
+"MYYU","Kootenay Region","Persistence",2022,0.7451,0.6,0.8333
+"MYYU","Kootenay Region","Persistence",2023,0.6399,0.5,0.8333
+"MYYU","Kootenay Region","Persistence",2024,0.5763,0.4444,0.7778
+"MYYU","Kootenay Region","Persistence",2025,0.6374,0.4,0.8571
+"MYYU","Northern Region","Colonization",2018,0.2903,0,1
+"MYYU","Northern Region","Colonization",2019,0.4089,0,1
+"MYYU","Northern Region","Colonization",2020,0.0743,0,1
+"MYYU","Northern Region","Colonization",2021,0.1236,0,1
+"MYYU","Northern Region","Colonization",2022,0.2586,0,1
+"MYYU","Northern Region","Colonization",2023,0.583,0,1
+"MYYU","Northern Region","Colonization",2024,0.1991,0,1
+"MYYU","Northern Region","Colonization",2025,0.1353,0,1
+"MYYU","Northern Region","Persistence",2018,NA,NA,NA
+"MYYU","Northern Region","Persistence",2019,0.8059,0,1
+"MYYU","Northern Region","Persistence",2020,0.1558,0,1
+"MYYU","Northern Region","Persistence",2021,NA,NA,NA
+"MYYU","Northern Region","Persistence",2022,NA,NA,NA
+"MYYU","Northern Region","Persistence",2023,NA,NA,NA
+"MYYU","Northern Region","Persistence",2024,0.2769,0,1
+"MYYU","Northern Region","Persistence",2025,NA,NA,NA
+"MYYU","Okanagan Region","Colonization",2018,0.2999,0,1
+"MYYU","Okanagan Region","Colonization",2019,0.0171,0,0
+"MYYU","Okanagan Region","Colonization",2020,0.0302,0,0.5
+"MYYU","Okanagan Region","Colonization",2021,0.05,0,0.5
+"MYYU","Okanagan Region","Colonization",2022,0.4089,0,1
+"MYYU","Okanagan Region","Colonization",2023,0.784,0,1
+"MYYU","Okanagan Region","Colonization",2024,0.155,0,1
+"MYYU","Okanagan Region","Colonization",2025,0.1109,0,0.6667
+"MYYU","Okanagan Region","Persistence",2018,0.9877,0.8333,1
+"MYYU","Okanagan Region","Persistence",2019,0.8683,0.8,1
+"MYYU","Okanagan Region","Persistence",2020,0.6267,0.1667,1
+"MYYU","Okanagan Region","Persistence",2021,0.9101,0.5,1
+"MYYU","Okanagan Region","Persistence",2022,0.9749,0.75,1
+"MYYU","Okanagan Region","Persistence",2023,0.7146,0.4,1
+"MYYU","Okanagan Region","Persistence",2024,0.8421,0.5,1
+"MYYU","Okanagan Region","Persistence",2025,0.7723,0.4,1

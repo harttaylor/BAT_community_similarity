@@ -1,0 +1,55 @@
+"species","scope","year","mean","lo95","hi95","naive","n_surveyed"
+"EUMA","BC (all sites)",2017,0.188,0.0952,0.2857,0.1429,14
+"EUMA","BC (all sites)",2018,0.1972,0.1905,0.2381,0.3077,13
+"EUMA","BC (all sites)",2019,0.1925,0.1905,0.2381,0.1905,21
+"EUMA","BC (all sites)",2020,0.0996,0.0952,0.1429,0.1053,19
+"EUMA","BC (all sites)",2021,0.1084,0.0952,0.1905,0.1111,18
+"EUMA","BC (all sites)",2022,0.1544,0.1429,0.2381,0.15,20
+"EUMA","BC (all sites)",2023,0.2227,0.1429,0.3333,0.1765,17
+"EUMA","BC (all sites)",2024,0.2096,0.1905,0.2857,0.2222,18
+"EUMA","BC (all sites)",2025,0.1679,0.1429,0.2381,0.1765,17
+"EUMA","BC (surveyed sites)",2017,0.1799,0.1429,0.2857,0.1429,14
+"EUMA","BC (surveyed sites)",2018,0.3127,0.3077,0.3846,0.3077,13
+"EUMA","BC (surveyed sites)",2019,0.1925,0.1905,0.2381,0.1905,21
+"EUMA","BC (surveyed sites)",2020,0.1101,0.1053,0.1579,0.1053,19
+"EUMA","BC (surveyed sites)",2021,0.1265,0.1111,0.2222,0.1111,18
+"EUMA","BC (surveyed sites)",2022,0.1583,0.15,0.25,0.15,20
+"EUMA","BC (surveyed sites)",2023,0.2076,0.1765,0.2941,0.1765,17
+"EUMA","BC (surveyed sites)",2024,0.2294,0.2222,0.2778,0.2222,18
+"EUMA","BC (surveyed sites)",2025,0.2075,0.1765,0.2941,0.1765,17
+"EUMA","BC (region-weighted)",2017,0.188,0.0952,0.2857,NA,14
+"EUMA","BC (region-weighted)",2018,0.1972,0.1905,0.2381,NA,13
+"EUMA","BC (region-weighted)",2019,0.1925,0.1905,0.2381,NA,21
+"EUMA","BC (region-weighted)",2020,0.0996,0.0952,0.1429,NA,19
+"EUMA","BC (region-weighted)",2021,0.1084,0.0952,0.1905,NA,18
+"EUMA","BC (region-weighted)",2022,0.1544,0.1429,0.2381,NA,20
+"EUMA","BC (region-weighted)",2023,0.2227,0.1429,0.3333,NA,17
+"EUMA","BC (region-weighted)",2024,0.2096,0.1905,0.2857,NA,18
+"EUMA","BC (region-weighted)",2025,0.1679,0.1429,0.2381,NA,17
+"EUMA","Kootenay Region",2017,0,0,0,0,7
+"EUMA","Kootenay Region",2018,0,0,0,0,5
+"EUMA","Kootenay Region",2019,0,0,0,0,12
+"EUMA","Kootenay Region",2020,0,0,0,0,10
+"EUMA","Kootenay Region",2021,0,0,0,0,9
+"EUMA","Kootenay Region",2022,0,0,0,0,12
+"EUMA","Kootenay Region",2023,0,0,0,0,11
+"EUMA","Kootenay Region",2024,0,0,0,0,10
+"EUMA","Kootenay Region",2025,0,0,0,0,10
+"EUMA","Northern Region",2017,0,0,0,0,2
+"EUMA","Northern Region",2018,0,0,0,0,2
+"EUMA","Northern Region",2019,0,0,0,0,2
+"EUMA","Northern Region",2020,0,0,0,0,2
+"EUMA","Northern Region",2021,0,0,0,0,2
+"EUMA","Northern Region",2022,0,0,0,0,2
+"EUMA","Northern Region",2023,0,0,0,0,1
+"EUMA","Northern Region",2024,0,0,0,0,2
+"EUMA","Northern Region",2025,0,0,0,NA,0
+"EUMA","Okanagan Region",2017,0.5641,0.2857,0.8571,0.4,5
+"EUMA","Okanagan Region",2018,0.5917,0.5714,0.7143,0.6667,6
+"EUMA","Okanagan Region",2019,0.5775,0.5714,0.7143,0.5714,7
+"EUMA","Okanagan Region",2020,0.2988,0.2857,0.4286,0.2857,7
+"EUMA","Okanagan Region",2021,0.3252,0.2857,0.5714,0.2857,7
+"EUMA","Okanagan Region",2022,0.4631,0.4286,0.7143,0.5,6
+"EUMA","Okanagan Region",2023,0.668,0.4286,1,0.6,5
+"EUMA","Okanagan Region",2024,0.6288,0.5714,0.8571,0.6667,6
+"EUMA","Okanagan Region",2025,0.5038,0.4286,0.7143,0.4286,7
