@@ -19,7 +19,7 @@ Passive acoustic monitoring has become a valuable tool for surveying species tha
 
 The North American Bat Monitoring Program (NABat) was established to make use of the low effort- high reward of acoustic monitoring, coordinating acoustic sampling across thousands of sites and hundreds of partner organizations to track continental trends in North American bat populations [@loeb2015]. Because participation is distributed, the recorders themselves are not standardized: partners deploy whichever make or model of autonomous recording unit (ARU) they have available, and manufacturers release updated models every few years. The pool of equipment contributing to NABat is therefore neither uniform across sites nor stable over time.
 
-Detector model is not a trivial source of variation. Studies comparing units side by side have consistently found differences in the number of calls recorded, detection probability, and species richness [@adams2012; @fenton2001 @parsons1996; @kaiser2015; @perea2020; @perks2025]. @adams2012 found that the Anabat SD2 detected no synthetic signals above 55 kHz, unlike the SM2BAT, implying poorer performance for high-frequency callers; @kaiser2015 observed the corresponding pattern in the field, with SM2BAT units acquiring more Myotis-group data than paired Anabat SD2 units. Interestingly, @kaiser2015 also reported greater detection distances for the Anabat SD2 microphone at low and mid-range frequencies compared to the SM2BAT. Critically, the magnitude and even the direction of these differences depend on deployment context including microphone orientation, weatherproofing, and habitat around deployments [@kaiser2015, @adams2012; @perks2025] . Correction factors are therefore not readily transferable between programs, and the effect of a given equipment change is best quantified within the monitoring network where it occurred.
+Detector model is not a trivial source of variation. Studies comparing units side by side have consistently found differences in the number of calls recorded, detection probability, and species richness [@adams2012; @fenton2001; @parsons1996; @kaiser2015; @perea2020; @perks2025]. @adams2012 found that the Anabat SD2 detected no synthetic signals above 55 kHz, unlike the SM2BAT, implying poorer performance for high-frequency callers; @kaiser2015 observed the corresponding pattern in the field, with SM2BAT units acquiring more Myotis-group data than paired Anabat SD2 units. Interestingly, @kaiser2015 also reported greater detection distances for the Anabat SD2 microphone at low and mid-range frequencies compared to the SM2BAT. Critically, the magnitude and even the direction of these differences depend on deployment context including microphone orientation, weatherproofing, and habitat around deployments [@kaiser2015; @adams2012; @perks2025] . Correction factors are therefore not readily transferable between programs, and the effect of a given equipment change is best quantified within the monitoring network where it occurred.
 
 British Columbia has contributed to NABat since 2016, using the resulting data both to support continental models and to fit provincial trend models [@rae2024; @hurtado2026BC]. Most sites have been sampled with consistent equipment throughout: the 31 sites considered here were surveyed with Wildlife Acoustics SM2BAT from 2015 to 2024. In 2025, a provincial equipment refresh replaced these with Titley Chorus recorders. This transition created both a need and an opportunity: a need to quantify how much of any subsequent change in recorded activity is attributable to the detector rather than the bat community, and an opportunity to do so under realistic field conditions rather than in a playback trial.
 
@@ -27,13 +27,102 @@ British Columbia has contributed to NABat since 2016, using the resulting data b
 
 ## **Study design**
 
-We used data collected from 24 NABat sites across southern British Columbia during the summer of 2025, from June 16th to June 25th (Figure 1). At each site two recorder types, the Anabat Chorus and the SM2-Swift, were deployed together on top of 3-m poles to establish the paired recorder setup and they were active for 10 nights. For the analysis, we filtered our dataset which contained 56745 observations to species with 50 or more detections present on at least 10 different sites-nights. This left us with 16 species to run our models on (Appendix 1 Table 1) and a dataset with 3030 observations. The eastern red bat, the hoary bat, the silver-haired bat, the little brown bat and the northern long-eared bat are designated as endangered in Canada (Bats 101). While the pallid bat and the spotted bat are designated as threatened and under special concern in Canada (Bats 101). The little brown bat is designated as being endangered and the northern long-eared bat as being nearly threatened according to the global conservation status (IUCN) (Bats by Region).
+We used data collected from 31 NABat sites across southern British Columbia during the summer of 2025, from June 16th to June 25th (Figure 1). At each site two recorder types, the Anabat Chorus and the SM2-Swift, were deployed together on top of 3-m poles to establish the paired recorder setup and they were active for 10 nights. For the analysis, we filtered our dataset which contained 56745 observations to species with 50 or more detections present on at least 10 different sites-nights. This left us with 16 species to run our models on (Appendix 1 Table 1) and a dataset with 3030 observations. The eastern red bat, the hoary bat, the silver-haired bat, the little brown bat and the northern long-eared bat are designated as endangered in Canada (Bats 101). While the pallid bat and the spotted bat are designated as threatened and under special concern in Canada (Bats 101). The little brown bat is designated as being endangered and the northern long-eared bat as being nearly threatened according to the global conservation status (IUCN) (Bats by Region).
 
 Add table with recorder specifications and deployment stuff.
 
-**Figure 1.** The 24 NABat sites in southern British Columbia (GPS Visualizer). 
+```{r}
+#| label: fig-sitemap
+#| fig-cap: "Locations of acoustic monitoring sites (NABat GRTS cells) across British Columbia, shown by region. Points are individual quadrant deployments; labels give the GRTS cell ID."
+#| fig-width: 6.5
+#| fig-height: 6.5
+#| dpi: 300
+#| echo: false
+#| message: false
+#| warning: false
 
-**Table 1:** The 16 bat species investigated in this study. Their common and scientific names, as well as their 4 letter code and status are listed (NABat 2018; Bats 101).
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(ggspatial)
+
+region_colors <- c(
+  "Northern"     = "#70A800",
+  "Southeast"    = "#E6E600",
+  "Southcentral" = "#E64C00",
+  "Southwest"    = "#0084A8"
+)
+
+# --- Regions --------------------------------------------------------------
+bc_regions <- st_read("Data/Raw/BCRegions.shp", quiet = TRUE) 
+if (is.na(st_crs(bc_regions))) st_crs(bc_regions) <- 4326 
+
+# Find the column holding the region names
+name_col <- names(st_drop_geometry(bc_regions))[
+  vapply(st_drop_geometry(bc_regions),
+         function(x) all(as.character(x) %in% names(region_colors)), logical(1))
+]
+bc_regions$Region <- if (length(name_col) > 0) {
+  as.character(bc_regions[[name_col[1]]])
+} else {
+  c("Northern", "Southcentral", "Southeast", "Southwest")
+}
+
+bc_regions <- bc_regions |>
+  st_make_valid() |>
+  st_transform(3005) |>                     # BC Albers, standard for BC maps
+  mutate(Region = factor(Region, levels = names(region_colors)))
+
+# Provincial border = outline of all regions dissolved together
+bc_border <- st_union(bc_regions)
+
+# --- Sites ----------------------------------------------------------------
+sites <- read.csv("Data/Raw/SiteSummaries/SiteLoc.csv", check.names = FALSE) |>
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326) |>
+  st_transform(3005)
+
+# One label per GRTS cell, placed at the centre of its quadrant points
+cell_labels <- sites |>
+  group_by(`GRTS Cell ID`) |>
+  summarise(geometry = st_centroid(st_union(geometry)), .groups = "drop")
+
+# --- Map ------------------------------------------------------------------
+site_map <- ggplot() +
+  geom_sf(data = bc_regions, aes(fill = Region), colour = "grey30",
+          linewidth = 0.2, alpha = 0.8) +
+  geom_sf(data = bc_border, fill = NA, colour = "black", linewidth = 0.5) +
+  geom_sf(data = sites, shape = 21, fill = "black", colour = "white",
+          size = 1.8, stroke = 0.4) +
+  geom_text_repel(
+    data = cell_labels,
+    aes(label = `GRTS Cell ID`, geometry = geometry),
+    stat = "sf_coordinates", size = 4, min.segment.length = 0,
+    segment.size = 0.25, box.padding = 0.4, max.overlaps = Inf,
+    bg.color = "white", bg.r = 0.2
+  ) +
+  scale_fill_manual(values = region_colors, name = "Region", drop = FALSE) +
+  labs(x = NULL, y = NULL) +
+  theme_bw(base_size = 10) +
+  theme(
+    legend.position = c(0.86, 0.70),
+    legend.background = element_rect(fill = "white", colour = "grey60"),
+    panel.grid = element_line(colour = "grey90", linewidth = 0.2)
+  )
+
+site_map <- site_map +
+  annotation_scale(location = "bl", width_hint = 0.25) +
+  annotation_north_arrow(
+    location = "tr", which_north = "true",
+    height = unit(0.9, "cm"), width = unit(0.9, "cm"),
+    pad_y = unit(0.3, "cm"),
+    style = north_arrow_minimal()
+  )
+
+site_map
+```
+
+~~**Table 1:** The 16 bat species investigated in this study. Their common and scientific names, as well as their 4 letter code and status are listed (NABat 2018; Bats 101).~~ \<-Dont think we need to add this in here
 
 |  |  |  |  |
 |------------------|------------------|------------------|------------------|
@@ -86,51 +175,34 @@ The model structure followed the provincial activity models exactly [@hurtado202
 #| include: true
 #| label: tbl-cov
 #| tbl-cap: "Top-performing stationary models selected by AIC-based stepwise selection. Definitions of covariates are: Temperature = nightly temperature (°C); Wind speed = nightly mean wind speed (km/h); RH = nightly mean relative humidity (%); dd = cumulative degree days above 10 °C since January 1; Moon = proportion of the moon illuminated × proportion of the night the moon was above the horizon; Clutter = distance (m) to the nearest clutter object; Nearby water = whether the detector was within 100 m of water (1 = yes, 0 = no); I(YearS²) = quadratic year term allowing for non-linear temporal trends. A * B denotes the main effects of A and B plus their interaction." 
-#| fig.pos: 'H'
 
-library(kableExtra)
+library(flextable)
+library(dplyr)
 
-model_covariates <- read.csv("Data/Analyzed/ActivityModels/ModelVariables-Chorus.csv") #using the output from Chorus bu SM2 output is the same
+# Using the Chorus output; SM2 output is the same
+model_covariates <- read.csv("Data/Analyzed/ActivityModels/ModelVariables-Chorus.csv")
 
-#format the covariates df 
-# Species code to common name lookup
 species_names <- c(
-  ANPA = "Pallid Bat",
-  COTO = "Townsend's Big-eared Bat",
-  EPFU = "Big Brown Bat",
-  EUMA = "Spotted Bat",
-  LABO = "Eastern Red Bat",
-  LACI = "Hoary Bat",
-  LANO = "Silver-haired Bat",
-  MYLU = "Little Brown Myotis",
-  MYYU = "Yuma Myotis",
-  MYEV = "Long-eared Myotis",
-  MYTH = "Fringed Myotis",
-  MYVO = "Long-legged Myotis",
-  MYCA = "California Myotis",
-  MYCI = "Western Small-footed Myotis",
-  PAHE = "Canyon Bat",
-  TABR = "Mexican Free-tailed Bat",
-  MYSE = "Northern Myotis"
+  ANPA = "Pallid Bat", COTO = "Townsend's Big-eared Bat", EPFU = "Big Brown Bat",
+  EUMA = "Spotted Bat", LABO = "Eastern Red Bat", LACI = "Hoary Bat",
+  LANO = "Silver-haired Bat", MYLU = "Little Brown Myotis", MYYU = "Yuma Myotis",
+  MYEV = "Long-eared Myotis", MYTH = "Fringed Myotis", MYVO = "Long-legged Myotis",
+  MYCA = "California Myotis", MYCI = "Western Small-footed Myotis", PAHE = "Canyon Bat",
+  TABR = "Mexican Free-tailed Bat", MYSE = "Northern Myotis"
 )
 
-# Clean covariate from models and format for report
-model_covariates<- model_covariates %>%
-  mutate(
-    Common_Name = species_names[sp],
-    Covariates = vars
-  ) %>%
-  select(Common_Name, Species_Code = sp, Covariates)
-                             
-kable(model_covariates,
-      col.names = c("Species", "Species Code", "Top Performing Model Covariates"),
-      label = "model-covariates") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                full_width = FALSE,
-                position = "left") %>%
-  column_spec(1, width = "15em") %>%
-  column_spec(2, width = "8em") %>%
-  column_spec(3, width = "20em")
+model_covariates <- model_covariates %>%
+  mutate(Species = unname(species_names[sp])) %>%
+  select(Species,
+         `Species Code` = sp,
+         `Top Performing Model Covariates` = vars)
+
+flextable(model_covariates) %>%
+  theme_booktabs() %>%
+  fontsize(size = 10, part = "all") %>%
+  width(j = 1, width = 2) %>%     # widths in inches
+  width(j = 2, width = 1) %>%
+  width(j = 3, width = 3.5)
 ```
 
 All models followed the same basic structure, modelling the total number of detected calls as a negative binomial response with log link:
@@ -189,17 +261,19 @@ comparison <- read.csv("Data/Analyzed/ActivityModels/activitytrend_comparison_Ch
 
 display_table <- comparison %>%
   transmute(
-    Species        = SpeciesGroup,
+    Species          = SpeciesGroup,
     `Chorus est (p)` = sprintf("%+.3f (%.3f)", est_C, p_C),
     `SM2 est (p)`    = sprintf("%+.3f (%.3f)", est_S, p_S),
-    `Chorus trend`   = trend_C,
-    `SM2 trend`      = trend_S,
     `Diff (in SE)`   = sprintf("%.2f", diff_in_SE),
     `n (C/S)`        = ifelse(n_match, as.character(n_C), paste0(n_C, "/", n_S)),
     Agreement        = agreement
   )
 
-print(kable(display_table, align = "lllllrrl"))
+flextable(display_table) %>%
+  theme_booktabs() %>%
+  fontsize(size = 9, part = "all") %>%
+  align(j = 5:6, align = "right", part = "all") %>%
+  autofit()
 ```
 
 ### Dynamic Occupancy
@@ -208,7 +282,7 @@ print(kable(display_table, align = "lllllrrl"))
 
 \*\*\* make sure to read @kaiser2015 carefully and when talking about our results to look for similarities and lessons learned
 
-The aim of this study was to determine if there was a difference between the Anabat Chorus and the SM2-Swift in detecting 16 bat species in southern British Columbia across 24 NABat sites. Our main findings was that there was a significant difference between the Anabat Chorus and the SM2-Swift at the species-level but not at the community-level. This research will give us insight into how newer generation ultrasonic recorders are influencing trend estimates for bat species in BC. In which case, statistical correction factors should be developed when utilizing these newer generation recorders for future bat conservation in BC, where they are facing threats that are greatly reducing population numbers. 
+The aim of this study was to determine if there was a difference between the Anabat Chorus and the SM2 in detecting 16 bat species in southern British Columbia across 24 NABat sites. Our main findings was that there was a significant difference between the Anabat Chorus and the SM2-Swift at the species-level but not at the community-level. This research will give us insight into how newer generation ultrasonic recorders are influencing trend estimates for bat species in BC. In which case, statistical correction factors should be developed when utilizing these newer generation recorders for future bat conservation in BC, where they are facing threats that are greatly reducing population numbers. 
 
 Species-level 
 
@@ -228,6 +302,6 @@ Our research suggests that there is a significant difference between the Anabat 
 
 "Low-frequency ultrasounds travel farther in air and attenuate less rapidly than high-frequency ultrasounds (Lawrence and Simmons [**1982**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0019), Parsons [**1996**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0027), Pettersson [**2004**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0028)). Furthermore, broadband frequency-modulated signals used by *Myotis* bats have lower source amplitudes and travel shorter distances than the quasi-constant-frequency or frequency-modulated calls used by low and midrange frequency bats (Schnitzler and Kalko [**2001**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0030), Limpens and McCracken [**2004**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0020)). Consequently, when surveying with acoustic bat detectors, we are more likely to detect low-phonic-group bats than high-frequency bats such as *Myotis* species (Adams et al. [**2012**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0001)). " from @kaiser2015
 
-Although we were ablet o quantify the differences in detectability from the units, when we actually ran our models with these, we found no effect on the overal model reustls. The estimates differ, but the significance and direction of the estimtes were the same for activity models. I
+Although we were able to quantify the differences in detectability from the units, when we actually ran our models with these, we found no effect on the overal model reustls. The estimates differ, but the significance and direction of the estimtes were the same for activity models. Want to clarify that these model resutls are not reliable, and were jsut used to see the impact of the units used. To see actual model resutls go to @hurtado2026BC.
 
 # Literature Cited
