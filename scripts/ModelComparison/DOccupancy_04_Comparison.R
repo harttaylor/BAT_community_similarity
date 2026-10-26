@@ -31,8 +31,8 @@ trends_long <- trends |>
                names_sep = "_") |>
   mutate(
     metric = factor(metric, levels = c("slope", "change"),
-                    labels = c("Annual trend (slope of occupancy per year)",
-                               "Overall change in occupancy (last - first year)")),
+                    labels = c("Change in occupancy per year",
+                               "Overall change in occupancy")),
     clear = lo95 > 0 | hi95 < 0      # 95% CrI excludes zero
   )
 
@@ -59,7 +59,7 @@ p <- ggplot(trends_long, aes(x = est, y = species, colour = detector, group = de
   scale_colour_manual(values = det_cols, name = "Data source") +
   facet_wrap(~ metric, ncol = 2, scales = "free_x") +
   labs(x = "Estimate (95% CI)", y = NULL) +
-  theme_bw(base_size = 11) +
+  theme_bw(base_size = 14) +
   theme(panel.grid.minor = element_blank(),
         panel.grid.major.y = element_line(colour = "grey92"),
         strip.background = element_rect(fill = "grey95"),
