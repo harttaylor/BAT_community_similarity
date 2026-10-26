@@ -1,7 +1,0 @@
-"species","scope","n_detections","psi_first","psi_last","slope","slope_lo95","slope_hi95","change","change_lo95","change_hi95","p_increase"
-"EUMA","BC (all sites)",69,0.188,0.1679,0.0012,-0.00756,0.0127,-0.0201,-0.1429,0.0952,0.2198
-"EUMA","BC (surveyed sites)",69,0.1799,0.2075,-0.00102,-0.0109,0.00805,0.0276,-0.1092,0.1513,0.7378
-"EUMA","BC (region-weighted)",69,0.188,0.1679,0.0012,-0.00756,0.0127,-0.0201,-0.1429,0.0952,0.2198
-"EUMA","Kootenay Region",0,0,0,0,0,0,0,0,0,0
-"EUMA","Northern Region",0,0,0,0,0,0,0,0,0,0
-"EUMA","Okanagan Region",69,0.5641,0.5038,0.0036,-0.02268,0.0381,-0.0603,-0.4286,0.2857,0.2198

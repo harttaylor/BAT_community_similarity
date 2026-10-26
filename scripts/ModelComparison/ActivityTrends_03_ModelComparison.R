@@ -116,8 +116,7 @@ pa <- ggplot(act_long, aes(x = est, y = SpeciesGroup,
                      labels = c(`TRUE` = "p < 0.05", `FALSE` = "n.s."),
                      breaks = c("TRUE", "FALSE"), name = NULL) +
   scale_colour_manual(values = det_cols, name = "Data source") +
-  labs(x = "Activity trend estimate (95% CI)", y = NULL,
-       title = "Activity trends (GLMM): Chorus vs SM2") +
+  labs(x = "Activity trend estimate (95% CI)", y = NULL) +
   theme_bw(base_size = 11) +
   theme(panel.grid.minor = element_blank(),
         panel.grid.major.y = element_line(colour = "grey92"),
