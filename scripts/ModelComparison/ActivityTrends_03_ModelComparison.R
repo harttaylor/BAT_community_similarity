@@ -74,7 +74,7 @@ cat("Sample size mismatch:",
 print(count(comparison, agreement))
 
 # ---- Save ----
-write_csv(comparison, "activitytrend_comparison_Chorus_vs_SM2.csv")
+write_csv(comparison, "Data/Analyzed/ActivityModels/activitytrend_comparison_Chorus_vs_SM2.csv")
 
 # ---- Optional: formatted table with highlighting ----
  display_table %>%

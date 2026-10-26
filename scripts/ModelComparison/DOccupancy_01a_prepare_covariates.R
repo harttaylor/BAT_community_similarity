@@ -56,8 +56,8 @@ library(tidyr)
 # a # in front of every line of the other. Use the same block in 01a, 01b, 02.
 
 # --- BC report: BC sites only --- 
-RAW_DATA_FILE   <- "Data/Raw/ModelComparison/AllYearActivitybyNight_2016-2025_SM2_dual_MV.csv"
-OUTPUT_DIR      <- "Data/Analyzed/DOccupancy"
+RAW_DATA_FILE   <- "Data/Raw/ModelComparison/AllYearActivitybyNight_2016-2025_Chorus_dual_MV.csv"
+OUTPUT_DIR      <- "Data/Analyzed/DOccupancy/Chorus"
 EXCLUDE_REGIONS <- c("Alaska")
 
 # --- Alaska report: BC and Alaska together (run 00_harmonise_BC_AK.R first) ---
@@ -376,10 +376,10 @@ std_params <- list(
   note = "Distances are log(x+1) transformed BEFORE standardising."
 )
 
-saveRDS(bat_data,         file.path(OUTPUT_DIR, "analysis_frame_SM2.rds"))
-saveRDS(site_covs,        file.path(OUTPUT_DIR, "site_covariates_SM2.rds"))
-saveRDS(harvest_grid,     file.path(OUTPUT_DIR, "siteyear_covariates_SM2.rds"))
-saveRDS(std_params,       file.path(OUTPUT_DIR, "standardization_params_SM2.rds"))
+saveRDS(bat_data,         file.path(OUTPUT_DIR, "analysis_frame.rds"))
+saveRDS(site_covs,        file.path(OUTPUT_DIR, "site_covariates.rds"))
+saveRDS(harvest_grid,     file.path(OUTPUT_DIR, "siteyear_covariates.rds"))
+saveRDS(std_params,       file.path(OUTPUT_DIR, "standardization_params.rds"))
 
 saveRDS(list(
   all_sites = all_sites, all_years = all_years,
@@ -393,7 +393,7 @@ saveRDS(list(
   dist_harvest    = dist_harvest_mat,
   temp            = temp_arr,
   julian          = julian_arr
-), file.path(OUTPUT_DIR, "model_covariates_SM2.rds"))
+), file.path(OUTPUT_DIR, "model_covariates.rds"))
 
 write.csv(site_covs, file.path(OUTPUT_DIR, "site_covariates_final.csv"),
           row.names = FALSE)

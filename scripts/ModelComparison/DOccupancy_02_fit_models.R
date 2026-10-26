@@ -43,7 +43,7 @@ library(jagsUI)
 # a # in front of every line of the other. Use the same block in 01a, 01b, 02.
 
 # --- BC report: every species ---
-INPUT_DIR   <- "Data/Analyzed/DOccupancy/SM2Data"
+INPUT_DIR   <- "Data/Analyzed/DOccupancy/V2/SM2"
 OUTPUT_DIR  <- "Data/Analyzed/DOccupancy/SM2Fits"
 det_summary <- read.csv(file.path(INPUT_DIR, "species_detection_summary.csv"))
 ALL_SPECIES <- det_summary$species

@@ -19,7 +19,7 @@ library(tidyr)
 # a # in front of every line of the other. Use the same block in 01a, 01b, 02.
 
 # --- BC report ---
-DATA_DIR <- "Data/Analyzed/DOccupancy"
+DATA_DIR <- "Data/Analyzed/DOccupancy/V2/Chorus"
 
 # --- Alaska report ---
 # DATA_DIR <- "data/processed/BC_AK"
@@ -37,9 +37,9 @@ NON_SPECIES_COLS <- c("F10K", "F20K", "F25K", "F30K", "F35K", "F40K",
 # 1. LOAD THE ANALYSIS FRAME AND COVARIATES FROM 01a
 # ============================================================================
 
-bat_data  <- readRDS(file.path(DATA_DIR, "analysis_frame_SM2.rds"))
-site_covs <- readRDS(file.path(DATA_DIR, "site_covariates_SM2.rds"))
-covs      <- readRDS(file.path(DATA_DIR, "model_covariates_SM2.rds"))
+bat_data  <- readRDS(file.path(DATA_DIR, "analysis_frame.rds"))
+site_covs <- readRDS(file.path(DATA_DIR, "site_covariates.rds"))
+covs      <- readRDS(file.path(DATA_DIR, "model_covariates.rds"))
 
 all_sites  <- covs$all_sites
 all_years  <- covs$all_years
@@ -195,10 +195,10 @@ for (sp in SPECIES_CODES) {
     col_covariates = c("Elevation", "Dist to Water", "Dist to Road", "Dist to Harvest"),
     per_covariates = c("Elevation", "Dist to Water", "Dist to Road", "Dist to Harvest"),
     det_covariates = c("Clutter", "Temperature", "Julian")
-  ), file.path(DATA_DIR, paste0("QUAD_", sp, "_data_SM2.rds")))
+  ), file.path(DATA_DIR, paste0("QUAD_", sp, "_data.rds")))
 }
 
-write.csv(summary_table, file.path(DATA_DIR, "species_detection_summary_SM2.csv"),
+write.csv(summary_table, file.path(DATA_DIR, "species_detection_summary.csv"),
           row.names = FALSE)
 
 # ============================================================================

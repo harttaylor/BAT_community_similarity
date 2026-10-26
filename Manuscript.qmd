@@ -149,7 +149,7 @@ Repeat surveys were nightly detection/non-detection data, subsampled to every ot
 
 # **Results**
 
-Species-level detection bias 
+## Species-level detection bias
 
 The species-specific negative binomial generalized linear mixed models (GLMM) showed the Anabat Chorus had a lower detection ratio for LABO and PAHE compared to the SM2-Swift (Figure 2). The LABO had a p-value of 0.00356\*\* and the PAHE had a p-value of 0.00948\*\*. The large confidence interval for PAHE is because this species is rare and we have limited detections or activity in our dataset. The Anabat Chorus had a higher detection ratio for MYCA, MYCI, MYVO, and MYSE compared to the SM2-Swift, which happen to be high frequency bats (Figure 1). With p-values of 0.00348\*\*, 0.0112\*, 1.42e-05\*\*\*, and 0.000411\*\*\* respectively. The remaining 10 species had their confidence interval fall within the detection ratio of 1, with p-values being greater than 0.05 (Figure 2). 
 
@@ -159,7 +159,7 @@ Intraclass correction coefficient (ICC) results showed that the bias between the
 
 **Figure 3.** Intraclass correlation coefficient (ICC, two-way agreement) between paired Anabat Chorus and SM2/Swift bat pass counts at three temporal aggregation scales: 1-hour bins, and full nights. Species are ordered by nightly ICC. Vertical dashed lines indicate thresholds for moderate (0.50) and good (0.75) agreement.
 
-Community-level agreement 
+## Community-level agreement
 
 The Jaccard index showed a minimum of 0.000, a first quartile of 0.600, a median of 0.750, a mean of 0.717, a third quartile of 0.875, and a maximum of 1.000 (Figure 4). The Sorensen index showed a minimum of 0.000, a first quartile of 0.7500, a median of 0.8571, a mean of 0.8150, a third quartile of 0.9333, and a maximum of 1.000 (Figure 4). The results of the Jaccard-Sorensen Index were visualized using a boxplot, with the grey and black dots representing the Anabat Chorus and the SM2-Swift detecting particular species at a specific site-night combination. There was significant overlap between the Anabat Chorus and the SM2-Swift in detecting similar species across the 24 sites as seen by majority of the dots for the Jaccard index and the Sorensen index being clustered around their receptive medians of 0.750 and 0.8571. Both medians are closer to 1 displaying significant overlap in the detections of the two recorders. 
 
@@ -174,6 +174,33 @@ The Bray-Curtis dissimilarity index showed significant overlap between the two r
 ## Modelling Comparison
 
 ### Activity Trends
+
+Activity trend estimates were broadly consistent between detector types. Of the 15 species modelled, 11 agreed in both the direction and significance of the trend (@tbl-activitycomp). For three species, Townsend's big-eared bat, hoary bat and California Myotis, trends agreed in direction but differed in significance. Townsend's big-eared bat and hoary bat showed significant increases with Chorus data (β = 0.085, p = 0.049 and β = 0.224, p = 0.046, respectively) but non-significant trends with SM2 data (β = 0.071, p = 0.098 and β = 0.138, p = 0.228). Hoary bat was also the only species for which sample sizes differed between detectors, with one fewer night of detections from Chorus than from SM2 (n = 204 vs. 205). California Myotis, showed a significant decline with SM2 data (β = −0.100, p = 0.006) but no significance with Chorus data (β = −0.064, p = 0.067). In all three cases, the difference between detector estimates was less than one standard error. This suggests the discrepancies reflect estimates lying near the significance threshold rather than contrasting trends. Fringed Myotis was the only species where the direction of the trend differed between detectors, with a slightly positive estimate from Chorus (β = 0.007, p = 0.829) and a slightly negative estimate from SM2 (β = −0.020, p = 0.557). Both estimates were close to zero and non-significant.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| include: true
+#| label: tbl-activitycomp
+#| tbl-cap: "Comparison between activity models"
+
+comparison <- read.csv("Data/Analyzed/ActivityModels/activitytrend_comparison_Chorus_vs_SM2.csv")
+
+display_table <- comparison %>%
+  transmute(
+    Species        = SpeciesGroup,
+    `Chorus est (p)` = sprintf("%+.3f (%.3f)", est_C, p_C),
+    `SM2 est (p)`    = sprintf("%+.3f (%.3f)", est_S, p_S),
+    `Chorus trend`   = trend_C,
+    `SM2 trend`      = trend_S,
+    `Diff (in SE)`   = sprintf("%.2f", diff_in_SE),
+    `n (C/S)`        = ifelse(n_match, as.character(n_C), paste0(n_C, "/", n_S)),
+    Agreement        = agreement
+  )
+
+print(kable(display_table, align = "lllllrrl"))
+```
 
 ### Dynamic Occupancy
 
@@ -200,5 +227,7 @@ A limitation of our study is that we only investigated the difference between th
 Our research suggests that there is a significant difference between the Anabat Chorus and the SM2-Swift at the species-level but not at the community-level. However, there are still many more ultrasonic detectors that need to be tested to determine their effects on bat populations trends. Furthermore, future research should also consider how environment factors like vegetation, cluster, and temperature impact the performance of different ultrasonic detectors. The impact of individual detector types on the detection of high vs low frequencies bats should also be investigated. In addition, our research only focused on 16 bat species, when there are 19 bat species in Canada. Therefore future research should focus more on those bat species not discussed here and to those which are endangered and threatened. 
 
 "Low-frequency ultrasounds travel farther in air and attenuate less rapidly than high-frequency ultrasounds (Lawrence and Simmons [**1982**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0019), Parsons [**1996**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0027), Pettersson [**2004**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0028)). Furthermore, broadband frequency-modulated signals used by *Myotis* bats have lower source amplitudes and travel shorter distances than the quasi-constant-frequency or frequency-modulated calls used by low and midrange frequency bats (Schnitzler and Kalko [**2001**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0030), Limpens and McCracken [**2004**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0020)). Consequently, when surveying with acoustic bat detectors, we are more likely to detect low-phonic-group bats than high-frequency bats such as *Myotis* species (Adams et al. [**2012**](https://wildlife-onlinelibrary-wiley-com.login.ezproxy.library.ualberta.ca/doi/full/10.1002/wsb.572#wsb572-bib-0001)). " from @kaiser2015
+
+Although we were ablet o quantify the differences in detectability from the units, when we actually ran our models with these, we found no effect on the overal model reustls. The estimates differ, but the significance and direction of the estimtes were the same for activity models. I
 
 # Literature Cited
