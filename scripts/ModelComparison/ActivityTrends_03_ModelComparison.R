@@ -5,6 +5,8 @@ library(dplyr)
 library(readr)
 library(knitr)
 library(gt)
+library(tidyr)
+library(ggplot2)
 
 # ---- Settings ----
 chorus_file <- "Data/Analyzed/ActivityModels/bc.cov.estimates.singlet.Chorus.csv"
@@ -76,9 +78,50 @@ print(count(comparison, agreement))
 # ---- Save ----
 write_csv(comparison, "Data/Analyzed/ActivityModels/activitytrend_comparison_Chorus_vs_SM2.csv")
 
-# ---- Optional: formatted table with highlighting ----
- display_table %>%
-   gt() %>%
-   tab_header(title = "Trend estimates: Chorus vs SM2") %>%
-   tab_style(style = cell_fill(color = "#FDE9C8"),
-             locations = cells_body(rows = Agreement != "Agree"))
+# Compare species-specific activity trends (GLMMs): Chorus vs SM2 data
+# Input:  activitytrend_comparison_Chorus_vs_SM2.csv
+# Output: fig_activity_trend_comparison.png
+#         Trend estimate +/- 95% CI (est +/- 1.96 SE) for each data source
+
+act <- comparison
+
+# order species by mean estimate across both data sources
+sp_order <- act |>
+  mutate(m = (est_C + est_S) / 2) |>
+  arrange(m) |>
+  pull(SpeciesGroup)
+
+# long format: one row per species x data source
+act_long <- act |>
+  select(SpeciesGroup, est_C, se_C, p_C, est_S, se_S, p_S) |>
+  pivot_longer(-SpeciesGroup,
+               names_to = c(".value", "detector"),
+               names_sep = "_") |>
+  mutate(detector = recode(detector, C = "Chorus", S = "SM2"),
+         lo95 = est - 1.96 * se,
+         hi95 = est + 1.96 * se,
+         sig  = p < 0.05,
+         SpeciesGroup = factor(SpeciesGroup, levels = sp_order))
+
+pda <- position_dodge(width = 0.6)
+
+pa <- ggplot(act_long, aes(x = est, y = SpeciesGroup,
+                          colour = detector, group = detector)) +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey55") +
+  geom_errorbarh(aes(xmin = lo95, xmax = hi95),
+                 height = 0, linewidth = 0.8, position = pd) +
+  geom_point(aes(shape = sig), size = 2.2, position = pda,
+             fill = "white", stroke = 0.9) +
+  scale_shape_manual(values = c(`TRUE` = 16, `FALSE` = 21),
+                     labels = c(`TRUE` = "p < 0.05", `FALSE` = "n.s."),
+                     breaks = c("TRUE", "FALSE"), name = NULL) +
+  scale_colour_manual(values = det_cols, name = "Data source") +
+  labs(x = "Activity trend estimate (95% CI)", y = NULL,
+       title = "Activity trends (GLMM): Chorus vs SM2") +
+  theme_bw(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.y = element_line(colour = "grey92"),
+        legend.position = "bottom")
+pa
+
+ggsave("Figures/fig_activity_trend_comparison.png", pa, width = 6.5, height = 6.5, dpi = 600)

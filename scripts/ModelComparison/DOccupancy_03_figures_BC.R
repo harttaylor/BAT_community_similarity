@@ -27,7 +27,7 @@ library(tidyr)
 # SETTINGS
 # ============================================================================
 
-DATA_DIR <- "Data/Analyzed/DOccupancy/SM2Data"
+DATA_DIR <- "Data/Analyzed/DOccupancy/SM2"
 FIT_DIR  <- "Data/Analyzed/DOccupancy/SM2Fits"
 OUT_DIR  <- "Outputs/DOccupancy/SM2"
 

@@ -56,8 +56,8 @@ library(tidyr)
 # a # in front of every line of the other. Use the same block in 01a, 01b, 02.
 
 # --- BC report: BC sites only --- 
-RAW_DATA_FILE   <- "Data/Raw/ModelComparison/AllYearActivitybyNight_2016-2025_Chorus_dual_MV.csv"
-OUTPUT_DIR      <- "Data/Analyzed/DOccupancy/Chorus"
+RAW_DATA_FILE   <- "Data/Raw/ModelComparison/AllYearActivitybyNight_2016-2025_SM2_dual_MV_clean-missingsiteswithMV.csv"
+OUTPUT_DIR      <- "Data/Analyzed/DOccupancy/SM2"
 EXCLUDE_REGIONS <- c("Alaska")
 
 # --- Alaska report: BC and Alaska together (run 00_harmonise_BC_AK.R first) ---

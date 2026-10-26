@@ -19,7 +19,7 @@ library(tidyr)
 # a # in front of every line of the other. Use the same block in 01a, 01b, 02.
 
 # --- BC report ---
-DATA_DIR <- "Data/Analyzed/DOccupancy/V2/Chorus"
+DATA_DIR <- "Data/Analyzed/DOccupancy/SM2"
 
 # --- Alaska report ---
 # DATA_DIR <- "data/processed/BC_AK"
