@@ -11,8 +11,6 @@ author:
     affiliation: "University of Alberta"
   - name: "Jason Rae"
     affiliation: "Wildlife Conservation Society Canada"
-  - name: "Matina Kalcounis-Rueppell"
-    affiliation: "University of Alberta"
   - name: "Erin Bayne"
     affiliation: "University of Alberta"
 editor: visual
