@@ -140,11 +140,11 @@ We defined a bat pass as one recording with a species-level automated identifica
 
 ### Species abundance
 
-We assessed differences in nightly counts per species detected by Chorus versus SM2 units by running one negative binomial generalized linear mixed models (GLMM) per species using the glmmTMB R package \[cite\]. We included a random effect for site which gives one Chorus vs SM2 comparison, so the unit pairs are replicates, giving the following model structure:
+\[fix first sentence\] We assessed differences in nightly counts per species detected by Chorus versus SM2 units by running one negative binomial generalized linear mixed models (GLMM) per species using the glmmTMB R package \[cite\]. The response was the total number of passes per unit per site, recorder was a fixed effect (Chorus or SM2), and site was a random intercept, giving the following model structure:
 
-n_calls \~ detector + (1 \| site)
+passes \~ recorder + (1 \| site)
 
-Because units were paired at each site and thus had identical environmental and recording conditions (e.g., temperature, moisture, humidity) and our primary interest was whether there were differences between the two recoridng units in the number of bat passes detected we did not included any addiitonal covariates other than the site-level effect. We report the ratio of Chorus/SM2 passes with 95% confidence intervals (CI).
+\[fix\] We included a random effect for site which gives one Chorus vs SM2 comparison, so the unit pairs are replicates, giving the following model structure. Because units were paired at each site and thus had identical environmental and recording conditions (e.g., temperature, moisture, humidity) and our primary interest was whether there were differences between the two recoridng units in the number of bat passes detected we did not included any addiitonal covariates other than the site-level effect. We report the ratio of Chorus/SM2 passes with 95% confidence intervals (CI).
 
 Because counts were overdispersed we used a negative binomial distribution, and fit models with the BFGS optimizer to deal with model convergence issues using the default optimizer. We assessed uniformity, dispersion, and zero-inflation in simulated residuals for each species using the DHARMa package (CITE; Supplementary Material Table S2).
 
