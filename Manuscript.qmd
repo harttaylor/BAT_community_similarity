@@ -251,13 +251,13 @@ Intraclass correction coefficient (ICC) results showed that the bias between the
 
 ## Community-level comparison
 
-Species richness did not differ between detectors, with the Chorus recording 7.3 mean species per night and the SM2 6.9 (paired Wilcoxon sign-ranked test, V = 290, p = 0.12), and species evenness was the same on both units (J = 0.73 for Chorus, J = 0.73 for SM2, V = 234, p = 0.98). There was high overlap between the two recording units with a median Sorensen index of 0.90 per site-night (mean 0.85, range \[0-1\], and the rank abundance curves of the two units were identical (Fig. 5a).
+Species richness did not differ between detectors, with the Chorus recording 7.3 mean species per night and the SM2 6.9 (paired Wilcoxon sign-ranked test, V = 290, p = 0.12), and species evenness was the same on both units (J = 0.73 for Chorus, J = 0.73 for SM2, V = 234, p = 0.98). There was high overlap between the two recording units with a median Sorensen index of 0.90 per site-night (mean 0.85, range \[0-1\], and the rank abundance curves of the two units were identical (Fig. 5).
 
-Community composition differed slightly but consistently between units, and recording unit explained less than 1% of the variation in community composition, whether based on proportions (PERMANOVA R^2^= 0.007, F~1,30~ = 4.02, p = 0.002) or raw pass counts (R^2^ = 0.006, F~1,30~ =3.05, p = 0.001), compared with 94% and 93% explained by site. Dispersion did not differ between units (betadisperser, p = 0.85 for proportions and 0.75 for raw counts), indicating that these differences reflect a shift in composition rather than a difference in variability among sites. In the NMDS ordination, the two communities from each site were close together (stress = 0.18; Fig. 5b; raw counts are shown in **Supplementary Material Fig. S).** One site, Kamloops NW, was an outlier, and the two units were more than twice as far apart in their composition here than at any other site (line length 1.93 vs. ≤ 0.75). **CAMI to look into Kamloops_NW site and what could be causing this (ie equipment malfunction, settings, automatic species ID etc.).**
+Community composition differed slightly but consistently between units, and recording unit explained less than 1% of the variation in community composition, whether based on proportions (PERMANOVA R^2^= 0.007, F~1,30~ = 4.02, p = 0.002) or raw pass counts (R^2^ = 0.006, F~1,30~ =3.05, p = 0.001), compared with 94% and 93% explained by site. Dispersion did not differ between units (betadisperser, p = 0.85 for proportions and 0.75 for raw counts), indicating that these differences reflect a shift in composition rather than a difference in variability among sites. In the NMDS ordination, the two communities from each site were close together (stress = 0.18; Supplementary Material **Fig. S1**).One site, Kamloops NW, was an outlier, and the two units were more than twice as far apart in their composition here than at any other site (line length 1.93 vs. ≤ 0.75). **CAMI to look into Kamloops_NW site and what could be causing this (ie equipment malfunction, settings, automatic species ID etc.). Both units have recordings so the SM2 didn't entirely fail, just in MUCH smaller proportions. If it was a settings thing/something systematic we could remove the outlier.**
 
-![](results/plot_nmds_composition_kaleidoscope.png)
+![](results/fig5_rank_abundance.png)
 
-**Figure 5.** NMDS ordination of Bray-Curtis dissimilarities representing bat community dissimilarity recorded by paired recording devices at 31 sites in British Columbia. Each point represents one site-unit combination, with the line distance between Anabat Chorus units (purple) and Song Meter SM2 (orange) indicating dissimilarity. Shorter lines indicate more similar community compositions in species proportions (stress = 0.18).
+**Figure 5.** Rank-abundance curves for bat communities recorded by paired Anabat Chorus (purple) and Song Meter SM2 (orange) units at 31 sites in British Columbia, with passes pooled across all sites. Species are ranked from most to least recorded by each unit, and the y-axis (log-scale) shows each species' proportion of that unit's passes. Labels give species codes (Table 1). Nearly overlapping curves indicate that both units recorded the same species in equal proportions.
 
 ### Classifier comparison 
 
@@ -322,3 +322,7 @@ Acoustic recording setting for SM2 and Chorus deployments
 | Min Trigger Frequency | 8kHz | 10kHz |
 | Min Recording Length | 2s | 2s |
 | Max Recording Length | 15s | 15s |
+
+![](results/figS_nmds_composition.png)
+
+**Figure S1.** Non-metric multidimensional scaling (NMDS) ordination of bat communities recorded by paired Anabat Chorus (purple) and Song Meter SM2 (orange) units at 31 sites in British Columbia, based on Bray-Curtis dissimilarities in the proportion of passes of each species (stress = 0.18). Each point is the community recorded by one unit at one site, and shorter lines connecting the two units indicate more similar communities.
